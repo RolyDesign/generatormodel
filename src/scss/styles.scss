@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+// If you want to override variables do it here
+@import "variables";
+
+// $enable-ltr: true;
+// $enable-rtl: true;
+
+// Import styles with default layout.
+@import "@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+// perfect scrollbar theming for use with [perfectScrollbar] directive
+//@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+@import "layout";
+
+// Some temp fixes
+@import "fixes";
+
+// Prism.js
+//@import "examples";
+
+// If you want to add something do it here
+@import "custom";
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+.spacer{
+  margin-top: 1.55rem;
+}
+.prev-file-img-container{
+  padding: 0;
+  height: calc(((1.5em + 0.5rem) * 3) + 1.5rem );
+  width: calc(((1.5em + 0.5rem) * 3) + 1.5rem );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 0.25rem;
+  fa-icon{
+    font-size: 2rem;
+    color: gray
+  };
+  img{
+    width: 99%;
+    height: 99%;
+    object-fit: contain;
+  }
+}
+
+.hover-prev-file-img-container{
+  &:hover{
+    &::before{
+      content: "X";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: white;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.557);
+      border-radius: 0.25rem;
+    }
+  }
+}
