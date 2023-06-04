@@ -45,6 +45,12 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { GeneratorModelComponent } from './generator-model/generator-model.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GuideComponent } from './guide/guide.component';
+import { ReadmodelsComponent } from './readmodels/readmodels.component';
+import { ModelEditComponent } from './model-edit/model-edit.component';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -57,7 +63,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, GeneratorModelComponent, GuideComponent, ReadmodelsComponent, ModelEditComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -86,6 +92,7 @@ const APP_CONTAINERS = [
     ListGroupModule,
     CardModule,
     HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     {
