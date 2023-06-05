@@ -24,6 +24,7 @@ import { valueValidatorMaxSizeFile } from '../shared/value-validator-max-size-fi
 import { valueValidatorMinAndMaxDate } from '../shared/value-validator-min-and-max-date.validator';
 import { FileStorageServiceService } from '../shared/file-storage-service.service';
 import { IFields } from '../shared/model-interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-model-edit',
@@ -102,7 +103,8 @@ export class ModelEditComponent implements OnInit {
   }
   constructor(
     private fb: FormBuilder,
-    private fileStorageSvc: FileStorageServiceService
+    private fileStorageSvc: FileStorageServiceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -119,6 +121,8 @@ export class ModelEditComponent implements OnInit {
         Fields: this.fb.array([...this.initialFields(res.Fields)]),
       });
     });
+    this.observerVailidatorsList();
+    this.observerFieldsList();
   }
   initialFields(fields: IFields[]): FormGroup[] {
     let listFields: FormGroup[] = [];
@@ -163,7 +167,9 @@ export class ModelEditComponent implements OnInit {
             }),
           }),
           Validators: this.fb.array([...this.initialValidators(el.Validators)]),
-          ValueValidators: this.fb.array([...this.initialValueValidators(el.ValueValidators)]),
+          ValueValidators: this.fb.array([
+            ...this.initialValueValidators(el.ValueValidators),
+          ]),
           AvilitarValidators: new FormControl({
             value: el.AvilitarValidators,
             disabled: el.AvilitarValidators == null,
@@ -176,11 +182,14 @@ export class ModelEditComponent implements OnInit {
   initialOptionSelected(options: any[] | undefined): FormControl[] {
     let optionList: any[] = [];
     if (options) {
-      options.forEach(el =>{
+      options.forEach((el) => {
         optionList.push(
-          new FormControl({ value: el, disabled:  el == null }, Validators.required)
-        )
-      })
+          new FormControl(
+            { value: el, disabled: el == null },
+            Validators.required
+          )
+        );
+      });
       return optionList;
     }
     optionList.push(this.buildOptionselected());
@@ -190,11 +199,14 @@ export class ModelEditComponent implements OnInit {
   initialValidators(validator: any[] | undefined): FormControl[] {
     let validatorList: any[] = [];
     if (validator) {
-      validator.forEach(el =>{
+      validator.forEach((el) => {
         validatorList.push(
-          new FormControl({ value: el, disabled:  el == null }, Validators.required)
-        )
-      })
+          new FormControl(
+            { value: el, disabled: el == null },
+            Validators.required
+          )
+        );
+      });
       return validatorList;
     }
     validatorList.push(this.buildValidators());
@@ -203,17 +215,19 @@ export class ModelEditComponent implements OnInit {
   initialValueValidators(value: any[] | undefined): FormControl[] {
     let valueList: any[] = [];
     if (value) {
-      value.forEach(el =>{
+      value.forEach((el) => {
         valueList.push(
-          new FormControl({ value: el, disabled:  el == null }, Validators.required)
-        )
-      })
+          new FormControl(
+            { value: el, disabled: el == null },
+            Validators.required
+          )
+        );
+      });
       return valueList;
     }
     valueList.push(this.buildValueValidators());
     return valueList;
   }
-
 
   buildOptionselected(): FormControl {
     return new FormControl({ value: '', disabled: true }, Validators.required);
@@ -336,6 +350,7 @@ export class ModelEditComponent implements OnInit {
     a.download = this.editModel.get('Name')?.value + '.json';
     a.click();
     URL.revokeObjectURL(url);
+    this.router.navigate(['/models']);
   }
 
   get fm() {
@@ -491,7 +506,7 @@ export class ModelEditComponent implements OnInit {
         });
 
       this.fields.get(`${i}.Type`)?.valueChanges.subscribe((res) => {
-        this.editModel.get(`Fields.${i}.DisplayType.Element`)?.setValue('');
+        this.editModel.get(`Fields.${i}.DisplayType.Element`)?.setValue(null);
         this.getvalidators(i).controls.forEach((elm, ind) => {
           this.getvalueValidators(i).get(`${ind}`)?.setValue(null);
           this.getvalidators(i).get(`${ind}`)?.setValue(null);

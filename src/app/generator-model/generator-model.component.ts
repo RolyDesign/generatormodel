@@ -19,6 +19,7 @@ import { valueValidatorMinAndMaxDate } from '../shared/value-validator-min-and-m
 import { valueValidatorMaxSizeFile } from '../shared/value-validator-max-size-file.validator';
 import { valueValidatorTypeFile } from '../shared/value-validator-type-file.validator ';
 import { faFileCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 
 
@@ -97,7 +98,7 @@ export class GeneratorModelComponent {
   get style() {
     return 'width:' + this.precent + '%';
   }
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.generator = this.fb.group({
@@ -198,6 +199,7 @@ export class GeneratorModelComponent {
     a.download = this.generator.get('Name')?.value + '.json';
     a.click();
     URL.revokeObjectURL(url);
+    this.router.navigate(['/models']);
   }
   handlerNext() {
     this.precent = (100 / this.fieldQuantity) * this.bolck;

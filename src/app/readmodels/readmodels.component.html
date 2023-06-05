@@ -2,12 +2,12 @@
   <div class="container">
     <div class="py-4 mx-auto w-50">
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-8">
           <input formControlName="currentfile" id="picture" class="form-control form-control-sm " type="file"
             placeholder="Picture" (change)="catchFile($event,'file')" accept="application/json">
           <em class="text-danger d-block mt-1">{{messageError}}</em>
         </div>
-        <div class="col-md-3">
+        <div class="col-4">
           <button type="button" class="btn btn-primary btn-sm me-4" routerLink="/generator">Add</button>
           <button type="button" [disabled]="!(currentFilesSubject | async)?.Name" class="btn btn-primary btn-sm"
             [routerLink]="['/model', (currentFilesSubject | async)?.Name ,'edit']">Edit</button>
