@@ -26,18 +26,22 @@ const routes: Routes = [
       {
         path: 'models',
         component: ReadmodelsComponent,
+        title:'Generator Model'
       },
       {
         path: 'model/:name/edit',
         component: ModelEditComponent,
+        title:'Edit Model'
       },
       {
         path: 'generator',
         component: GeneratorModelComponent,
+        title:'Add Model'
       },
       {
         path: 'guide',
         component: GuideComponent,
+        title:'Guide'
       },
       {
         path: 'pages',

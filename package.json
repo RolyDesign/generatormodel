@@ -4,19 +4,22 @@
   "copyright": "Copyright 2023 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "author": "The CoreUI Team (https://github.com/orgs/coreui/people) and contributors",
-  "homepage": "https://coreui.io/angular",
+  "homepage": "https://rolydesign.github.io/generatormodel",
   "config": {
     "coreui_library_short_version": "4.3",
     "coreui_library_docs_url": "https://coreui.io/angular/docs/"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "private": true,
+
+  "private": false,
   "dependencies": {
     "@angular/animations": "^15.2.8",
     "@angular/cdk": "^15.2.8",
@@ -55,6 +58,7 @@
     "@angular/localize": "^15.2.8",
     "@types/jasmine": "^4.3.1",
     "@types/node": "^18.16.16",
+    "angular-cli-ghpages": "^1.0.6",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
