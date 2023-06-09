@@ -16,6 +16,7 @@ const actionsModal = {
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
+  styleUrls:['./default-header.component.scss'],
 })
 export class DefaultHeaderComponent extends HeaderComponent {
   data = this.appService.getAll();
