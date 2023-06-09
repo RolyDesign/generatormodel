@@ -41,9 +41,9 @@
 <!--main-->
 <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent" >
   <!--app-header-->
-  <!-- <app-default-header class="d-print-none header header-sticky" position="sticky" sidebarId="sidebar"></app-default-header> -->
+  <app-default-header  class="d-print-none header header-sticky" position="sticky" sidebarId="sidebar"></app-default-header>
   <!--app-body-->
-  <div class="body flex-grow-1 position-relative ">
+  <div class="body flex-grow-1 ">
     <c-container [fluid]="true" class="h-auto">
       <router-outlet></router-outlet>
     </c-container>
@@ -51,3 +51,7 @@
   <!--app footer-->
   <!-- <app-default-footer></app-default-footer> -->
 </div>
+
+<confirm  (action)="actions()" [confirmMessage]="messageModal " modalTitle="Alert!!!"></confirm>
+
+

@@ -31,7 +31,7 @@ export class NewProjectComponent implements OnInit {
     }
     //this.dataStorage.setLocalStotage(data)
     this.dataStorage.addDataStorage(this.data)
-    this.router.navigate(["/app-detail"])
+    this.router.navigate(["/app/detail"])
   }
   get fm() {
     return this.app.controls;

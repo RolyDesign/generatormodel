@@ -25,7 +25,7 @@ import { NewProjectComponent } from './components/new-project/new-project.compon
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'app-detail',
+    redirectTo: 'app/detail',
     pathMatch: 'full'
   },
   {
@@ -39,7 +39,7 @@ const routes: Routes = [
     title:'Create New App'
   },
   {
-    path: 'edit-app',
+    path: 'app/edit',
     component: EditAppComponent,
     title:'Edit App'
   },
@@ -49,7 +49,7 @@ const routes: Routes = [
 
     children: [
       {
-        path: 'app-detail',
+        path: 'app/detail',
         component: AppDetailComponent,
         title:'App Detail'
       },

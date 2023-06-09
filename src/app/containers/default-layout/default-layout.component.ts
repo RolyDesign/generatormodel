@@ -6,7 +6,14 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FileStorageServiceService } from 'src/app/shared/file-storage-service.service';
 import { IEntity, IFields } from '../../shared/model-interfaces';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
-
+import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.service';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
+const actionsModal = {
+  new: 'new',
+  open: 'open',
+  close: 'close',
+};
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
@@ -17,42 +24,33 @@ export class DefaultLayoutComponent implements OnInit {
   public perfectScrollbarConfig = {
     suppressScrollX: true,
   };
+  messageModal!: string;
 
-  constructor(private fileStorge: FileStorageServiceService, private dataStorage: LocalStorageService) {}
+  constructor(
+    private dataStorage: LocalStorageService,
+    private actionMNodal: ActionModalHeaerService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
-    // this.dataStorage.getDataStorage().subscribe((res) => {
-    //   this.navItems.push({
-    //     name: res.Name,
-    //     url: '/',
-    //     class:"indexer-app-nav",
-    //     children: [...this.entities(res.Entities)],
-    //   });
-    // });
-  }
-  entities(ent: IEntity[]) {
-    let entityList: INavData[] = [];
-    ent.forEach((el) => {
-      entityList.push({
-        name: el.Name,
-        url: `/entities/${el.Name.toLocaleLowerCase()}`,
-        class:"indexer-ent-nav",
-        children:[...this.fields(el.Fields)]
-      });
+    this.actionMNodal.getmessageModal$.subscribe((res) => {
+      this.messageModal = res;
     });
-    return entityList
   }
 
-  fields(fields: IFields[]) {
-    let fieldsList: INavData[] = [];
-    fields.forEach((el) => {
-      fieldsList.push({
-        name: el.Name,
-        url: `/entities/${el.Name.toLocaleLowerCase()}/fields/${el.Name}`,
-        class:"indexer-field-nav",
-      });
+  actions() {
+    this.actionMNodal.getAction$.pipe(take(1)).subscribe((res) => {
+      if (res == actionsModal.new) {
+        this.router.navigateByUrl('/new-app');
+        this.dataStorage.removeDataStorage();
+      }
+      if (res == actionsModal.open) {
+        this.router.navigateByUrl('/new-app');
+        this.dataStorage.removeDataStorage();
+      }
+      if (res == actionsModal.close) {
+        this.router.navigateByUrl('/initial');
+        this.dataStorage.removeDataStorage();
+      }
     });
-    return fieldsList
   }
 }
-
-

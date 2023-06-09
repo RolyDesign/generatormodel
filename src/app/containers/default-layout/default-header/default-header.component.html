@@ -1,5 +1,5 @@
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
-<ng-container>
+<!-- <ng-container>
   <c-container [fluid]="true">
     <button
       toggle="visible"
@@ -41,15 +41,15 @@
       <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
     </c-header-nav>
 
-  </c-container>
-  <!-- <c-header-divider></c-header-divider>
+  </c-container> -->
+<!-- <c-header-divider></c-header-divider>
   <c-container [fluid]="true">
     <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
   </c-container>
 </ng-container> -->
 <!--</c-header>-->
 
-<ng-template #userDropdown>
+<!-- <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
     <button
       cButton
@@ -153,5 +153,26 @@
       <li></li>
     </ul>
   </c-dropdown>
-</ng-template>
-
+</ng-template> -->
+<ng-container *ngIf="data | async as data">
+  <div class="container">
+    <div class="d-flex justify-content-between  w-100">
+    <div class="d-flex justify-content-start align-items-end">
+      <h3 class="m-0 d-flex align-items-start">{{data.Name}}</h3>
+      <a class="text-decoration-none fw-bolder ms-3 text-info" style="font-size: 0.9rem;" routerLink="/app/edit">
+        Edit
+      </a>
+    </div>
+      <div>
+        <button (click)="onActions('new')" data-bs-toggle="modal" data-bs-target="#confirmModal"
+          class="btn btn-dark btn-sm me-2 rounded-pill px-3">New</button>
+        <button (click)="onActions('open')" data-bs-toggle="modal" data-bs-target="#confirmModal"
+          class="btn btn-dark btn-sm  me-2 rounded-pill px-3">Open</button>
+        <button (click)="onActions('close')" data-bs-toggle="modal" data-bs-target="#confirmModal"
+          class="btn btn-dark btn-sm me-2 rounded-pill px-3">Close</button>
+        <button (click)="onActions('export')" data-bs-toggle="modal" data-bs-target="#confirmModal"
+          class="btn btn-dark btn-sm rounded-pill px-3">Export Model</button>
+      </div>
+    </div>
+  </div>
+</ng-container>

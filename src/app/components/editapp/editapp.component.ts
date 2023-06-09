@@ -46,7 +46,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.data.Name = this.app.get('Name')?.value;
     this.dataStorageSvc.addDataStorage(this.data);
     // this.dataStorageSvc.setLocalStotage(data)
-    this.router.navigate(['/app-detail']);
+    this.router.navigate(['/app/detail']);
   }
 
   get fm() {

@@ -34,7 +34,7 @@ export class CreateEntityComponent implements OnInit{
 
   createEntity() {
    this.entityService.addEntity(this.entity.value as IEntity)
-   this.router.navigate(['/app-detail']);
+   this.router.navigate(['/app/detail']);
   }
 
   get fm() {

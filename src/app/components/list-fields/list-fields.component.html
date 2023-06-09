@@ -2,19 +2,7 @@
 <ng-container *ngIf="fields | async as fields">
   <div class="container">
     <div>
-      <div class="d-flex justify-content-between border-bottom py-3">
-        <h3 class="m-0 d-flex align-items-start">{{data.Name}} <fa-icon role="button" (click)="onEditNameApp()" class="ms-2 fs-6 " title="Editar nombre de aplicacion"
-            [icon]="icon.edit"></fa-icon></h3>
-        <div>
-          <button (click)="onActions('new')" data-bs-toggle="modal" data-bs-target="#confirmModal"  class="btn btn-dark btn-sm me-2 rounded-pill px-3">New Project</button>
-          <button (click)="onActions('open')" data-bs-toggle="modal" data-bs-target="#confirmModal"  class="btn btn-dark btn-sm  me-2 rounded-pill px-3">Open Project</button>
-          <button (click)="onActions('close')" data-bs-toggle="modal" data-bs-target="#confirmModal"  class="btn btn-dark btn-sm rounded-pill px-3">Close Project</button>
-        </div>
-        <div>
-          <fa-icon title="Download Models" class="fs-5" [icon]="icon.download"></fa-icon>
-        </div>
-      </div>
-      <div class="bg-light mt-3 ">
+      <div class="bg-light mt-4 ">
       <div class="d-flex justify-content-between">
         <div class="d-flex justify-content-start align-items-center">
           <h4 class="position-relative">Fields
@@ -27,7 +15,7 @@
           </a>
         </div>
         <div>
-          <button [routerLink]="'/app-detail'" class="btn btn-primary btn-sm">To Back</button>
+          <button [routerLink]="'/app/detail'" class="btn btn-primary btn-sm">To Back</button>
         </div>
       </div>
         <ng-container *ngIf="fields.length > 0">
@@ -81,7 +69,7 @@
                 </td>
                 <td class="text-end">
                   <span role="button" class="text-info  " [routerLink]="['/entities', entityId, 'fields', field.Id]">Edit</span>
-                  <span *ngIf="field.Name !== 'id'" data-bs-toggle="modal" data-bs-target="#confirmModalDelete"   role="button" class="text-info ms-4">Delete</span>
+                  <span (click)="saveIdAndName(field.Id , field.Name)" *ngIf="field.Name !== 'id'" data-bs-toggle="modal" data-bs-target="#confirmModalDelete"   role="button" class="text-info ms-4">Delete</span>
                 </td>
               </tr>
             </tbody>
@@ -93,6 +81,4 @@
 </ng-container>
 </ng-container>
 <div class="divider"></div>
-
- <confirm (action)="actions()" [confirmMessage]="confirmMessage " modalTitle="Alert!!!"></confirm>
- <confirm (action)="deleteEntity()" [id]="'confirmModalDelete'" [confirmMessage]="'Va a eliminar la entidad: '+entityName+ '. Desea Continuar'" modalTitle="Alert!!!"></confirm>
+ <confirm (action)="deletefield()" [id]="'confirmModalDelete'" [confirmMessage]="'Va a eliminar el campo: '+fieldName+ '. Desea Continuar'" modalTitle="Alert!!!"></confirm>

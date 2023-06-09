@@ -33,6 +33,8 @@ export class ListFieldsComponent {
   confirmMessage = `Esta accion eliminara los datos almacenados en el local storage.Asegurece de haber descargado el proyecto. Desea continuar.`;
   actionsModal!: string;
   actionsModalsConst = actionsModal;
+  fieldId!:number
+  fieldName!: string;
 
   constructor(
     private dataStorage: LocalStorageService,
@@ -48,31 +50,12 @@ export class ListFieldsComponent {
     this.fields = this.fieldService.getAll(this.entityId)
   }
 
-  onActions(action: string, id: number = 0, name = '') {
-    // this.id = id;
-    // this.entityName = name;
-    // this.actionsModal = action;
+  saveIdAndName(fieldId: number, name: string){
+    this.fieldId = fieldId
+    this.fieldName = name
   }
 
-  actions() {
-    this.dataStorage.addDataStorage({
-      Id: 0,
-      Name: '',
-      Entities: [],
-    });
-    this.dataStorage.removeDataStorage();
-    if (this.actionsModal == actionsModal.new) {
-      this.router.navigate(['/new-app']);
-    }
-    if (this.actionsModal == actionsModal.open) {
-      this.router.navigate(['/new-app']);
-    }
-    if (this.actionsModal == actionsModal.close) {
-      this.router.navigate(['/initial']);
-    }
-  }
-
-  deleteEntity() {
+  deletefield() {
     // this.entityService.deleteEntity(this.id);
   }
 

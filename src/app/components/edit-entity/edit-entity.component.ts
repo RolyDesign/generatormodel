@@ -38,7 +38,7 @@ export class EditEntityComponent implements OnInit, OnDestroy {
 
   editEntity() {
     this.entityService.editEntity(this.entity.value, this.id);
-    this.router.navigate(['/app-detail']);
+    this.router.navigate(['/app/detail']);
   }
 
   get fm() {
