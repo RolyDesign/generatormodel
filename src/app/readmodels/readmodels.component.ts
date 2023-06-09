@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { IModel } from '../shared/model-interfaces';
+import { IEntity } from '../shared/model-interfaces';
 import Ajv from 'ajv';
 import {schema} from '../shared/schema';
 import {FileStorageServiceService}from '../shared/file-storage-service.service'
@@ -14,7 +14,7 @@ import {FileStorageServiceService}from '../shared/file-storage-service.service'
 export class ReadmodelsComponent implements OnInit {
   constructor(private fb: FormBuilder, private fileStotrageSvc: FileStorageServiceService) {}
   readFile!: FormGroup;
-  protected currentFilesSubject = new Subject<IModel>();
+  protected currentFilesSubject = new Subject<IEntity>();
   messageError = ""
 
   ngOnInit(): void {

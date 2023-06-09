@@ -1,12 +1,23 @@
 import {DataTypes, ElementType, Elements, TypeFile, ValidatorsEnum} from "../generator-model/meta-data"
 
-export interface IModel {
+export interface appModel {
+
+  Id:number
+  Name: string
+  Entities: IEntity[]
+}
+
+export interface IEntity {
+  Id:number;
+  AppId:number;
   Name: string;
   PluralName: string;
   Fields:IFields[];
 }
 
 export interface IFields {
+  Id:number
+  EntityId:number;
   Name: string;
   DisplayName: string;
   Type: DataTypes;

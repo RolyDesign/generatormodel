@@ -17,8 +17,11 @@ export const VALIDATION_FORMS  = {
 };
 
 export const helpeMessage = {
+  appname: "Este campo es Requerido, Debe ser con letra inicial Mayuscula y no debe contener espacios ni caracteres extranios. Espesifica el nombre de la Aplicacion",
   entityname : "Este campo es Requerido, Debe ser con letra inicial Mayuscula y no debe contener espacios ni caracteres extranios. Espesifica el nombre de la Entidad",
   entityPluralName: "Este campo es Requerido, Debe ser con letra inicial Mayuscula y no debe contener espacios ni caracteres extranios. Espesifica el nombre de la Entidad en plural",
+  DisplayName:"Este campo es Requerido, Define el nombre de la entidad a usar en el view",
+  Element:'Este campo es requerido define el elemento HTML que se usara en los formularios de creacion y edicion',
   decrementFields: "Este boton decrementa en uno la cantidad de campos, siempre va descontando el ultimo en la lista",
   incrementFields: "Este boton incrementa en uno la cantidad de campos, siempre va agrgando al final de la lista",
   disableCounter: "Este boton desabilita o avilita la funcionalidad de agrgar o disminuir campos evitando asi eliminar un campo terminado por error",

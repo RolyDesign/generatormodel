@@ -1,0 +1,76 @@
+<ng-container *ngIf="data | async as data">
+  <div class="container">
+    <div>
+      <div class="d-flex justify-content-between border-bottom py-3">
+        <h3 class="m-0 d-flex align-items-start">{{data.Name}} <fa-icon role="button" (click)="onEditNameApp()" class="ms-2 fs-6 " title="Editar nombre de aplicacion"
+            [icon]="icon.edit"></fa-icon></h3>
+        <div>
+          <button (click)="onActions('new')" data-bs-toggle="modal" data-bs-target="#confirmModal"  class="btn btn-dark btn-sm me-2 rounded-pill px-3">New Project</button>
+          <button (click)="onActions('open')" data-bs-toggle="modal" data-bs-target="#confirmModal"  class="btn btn-dark btn-sm  me-2 rounded-pill px-3">Open Project</button>
+          <button (click)="onActions('close')" data-bs-toggle="modal" data-bs-target="#confirmModal"  class="btn btn-dark btn-sm rounded-pill px-3">Close Project</button>
+        </div>
+        <div>
+          <fa-icon title="Download Models" class="fs-5" [icon]="icon.download"></fa-icon>
+        </div>
+      </div>
+      <div class="bg-light mt-3 ">
+        <div class="d-flex justify-content-start align-items-center">
+          <h4 class="position-relative">Entities
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size: 0.6rem;">
+              {{data.Entities.length}}
+            </span>
+
+          </h4>
+          <a class="text-decoration-none fw-bolder ms-3 text-info" style="font-size: 0.9rem;" routerLink="/entities/add">
+            New Entity
+          </a>
+        </div>
+        <ng-container *ngIf="data.Entities.length > 0">
+          <table class="table shadow border table-striped bg-light  ">
+            <thead class="bg-secondary">
+              <tr>
+                <th>
+                  Entity Name
+                </th>
+                <th>
+                  Entity Plural Name
+                </th>
+                <th>
+                  Fields Quantity
+                </th>
+                <th>
+
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entity of data.Entities">
+                <td>
+                  {{entity.Name}}
+                </td>
+                <td>
+                  {{entity.PluralName}}
+                </td>
+                <td>
+                  {{entity.Fields.length}}
+                </td>
+                <td class="text-end">
+                  <span role="button" class="text-info  me-4" [routerLink]="['/entities', entity.Id]">Edit</span>
+                  <span data-bs-toggle="modal" data-bs-target="#confirmModalDelete"  (click)="onActions('delete',entity.Id, entity.Name)" role="button" class="text-info  me-4">Delete</span>
+                  <span role="button" class=" text-info  me-4" [routerLink]="['/entities', entity.Id, 'fields', 'add']">Add Field </span>
+                  <span role="button" class=" text-info " [routerLink]="['/entities', entity.Id, 'fields']">Detail Fields</span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<div class="divider"></div>
+
+ <confirm (action)="actions()" [confirmMessage]="confirmMessage " modalTitle="Alert!!!"></confirm>
+ <confirm (action)="deleteEntity()" [id]="'confirmModalDelete'" [confirmMessage]="'Va a eliminar la entidad: '+entityName+ '. Desea Continuar'" modalTitle="Alert!!!"></confirm>
+

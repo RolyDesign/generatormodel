@@ -4,6 +4,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
+import { LocalStorageService } from './shared/local-storage.service';
+import { FileStorageServiceService } from './shared/file-storage-service.service';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +14,13 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent implements OnInit {
   title = 'CoreUI Free Angular Admin Template';
 
+
   constructor(
     private router: Router,
     private titleService: Title,
-    private iconSetService: IconSetService
+    private iconSetService: IconSetService,
+    private dataStorage: LocalStorageService,
+    private fileStorage: FileStorageServiceService
   ) {
     titleService.setTitle(this.title);
     // iconSet singleton
@@ -28,5 +33,12 @@ export class AppComponent implements OnInit {
         return;
       }
     });
+    const dataLocalStotage = this.dataStorage.getLocalStotage();
+    if (!!dataLocalStotage) {
+      this.dataStorage.addDataStorage(dataLocalStotage)
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/initial']);
+    }
   }
 }
