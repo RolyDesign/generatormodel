@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   VALIDATION_FORMS,
   helpeMessage,
-} from '../generator-model/message-validation.const';
+} from '../../generator-model/message-validation.const';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../shared/local-storage.service';
+import { LocalStorageService } from '../../shared/local-storage.service';
 import { Subscription } from 'rxjs';
-import { IEntity, appModel } from '../shared/model-interfaces';
-import {EntityService} from '../shared/entity.service'
+import { IEntity, appModel } from '../../shared/model-interfaces';
+import {EntityService} from '../../shared/entity.service'
 
 @Component({
   selector: 'app-create-entity',

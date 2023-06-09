@@ -28,7 +28,7 @@ export class FieldService {
   getAll(entityId: number):Observable<IFields[]>{
     return this.dataStorageSvc.getDataStorage().pipe(
       switchMap(res=>{
-        return of(res.Entities.find(e=> e.Id == entityId)?.Fields as IFields[])
+        return of(res.Entities.find(e=> e.Id == entityId)?.Fields.sort((a,b)=>a.Id - b.Id) as IFields[])
       })
     )
   }

@@ -66,7 +66,6 @@
                 <td>
                   <span *ngIf=" !field.DisplayType?.OptionsSelected">---</span>
                   <span *ngFor="let opt of field.DisplayType?.OptionsSelected" class="d-block"> {{opt ? opt : "---"}}</span>
-
                 </td>
                 <td>
                   <span *ngIf=" !field.DisplayType?.FileOptions?.TypeFile">---</span>

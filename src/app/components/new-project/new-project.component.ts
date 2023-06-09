@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  VALIDATION_FORMS,
-  helpeMessage,
-} from '../generator-model/message-validation.const';
-import { LocalStorageService } from '../shared/local-storage.service';
-import { appModel } from '../shared/model-interfaces';
 import { Router } from '@angular/router';
+import { VALIDATION_FORMS, helpeMessage } from 'src/app/generator-model/message-validation.const';
+import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { appModel } from 'src/app/shared/model-interfaces';
 
 @Component({
   selector: 'app-new-project',

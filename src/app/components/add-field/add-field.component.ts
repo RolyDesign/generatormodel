@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
   VALIDATION_FORMS,
   helpeMessage,
-} from '../generator-model/message-validation.const';
+} from '../../generator-model/message-validation.const';
 import {
   FormArray,
   FormBuilder,
@@ -10,10 +10,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { IEntity, IFields, appModel } from '../shared/model-interfaces';
+import { IEntity, IFields, appModel } from '../../shared/model-interfaces';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocalStorageService } from '../shared/local-storage.service';
+import { LocalStorageService } from '../../shared/local-storage.service';
 import {
   DataTypes,
   ElementType,
@@ -21,11 +21,11 @@ import {
   TypeFile,
   ValidatorsEnum,
   ValuesValidatorsDynamic,
-} from '../generator-model/meta-data';
-import { valueValidatorMinAndMaxDate } from '../shared/value-validator-min-and-max-date.validator';
-import { valueValidatorMaxSizeFile } from '../shared/value-validator-max-size-file.validator';
-import { valueValidatorTypeFile } from '../shared/value-validator-type-file.validator ';
-import { FieldService } from '../shared/field.service';
+} from '../../generator-model/meta-data';
+import { valueValidatorMinAndMaxDate } from '../../shared/value-validator-min-and-max-date.validator';
+import { valueValidatorMaxSizeFile } from '../../shared/value-validator-max-size-file.validator';
+import { valueValidatorTypeFile } from '../../shared/value-validator-type-file.validator ';
+import { FieldService } from '../../shared/field.service';
 
 @Component({
   selector: 'app-add-field',
@@ -194,7 +194,7 @@ export class AddFieldComponent {
   }
   createField() {
     this.fieldService.add(<IFields>this.fieldForm.value, this.id);
-    this.router.navigate(['/app-detail']);
+    this.router.navigate(['/entities', this.id, 'fields']);
   }
   getLastFieldId(fields: IFields[]): number {
     let id = 1;

@@ -24,6 +24,10 @@ export class LocalStorageService {
 
   removeDataStorage(){
     window.localStorage.removeItem('eva-app')
+    this.dataStorageSubject.next(
+      { Id:1,
+      Name: '',
+      Entities: [],})
   }
 
   getLocalStotage(){

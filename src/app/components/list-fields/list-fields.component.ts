@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { faDownload, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { LocalStorageService } from '../shared/local-storage.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from '../shared/app.service';
-import { EntityService } from '../shared/entity.service';
-import { FieldService } from '../shared/field.service';
+
+
 import { Observable } from 'rxjs';
-import { IFields } from '../shared/model-interfaces';
+import { IFields } from 'src/app/shared/model-interfaces';
+import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { AppService } from 'src/app/shared/app.service';
+import { FieldService } from 'src/app/shared/field.service';
+import { EntityService } from 'src/app/shared/entity.service';
+
 const actionsModal = {
   new: 'new',
   open: 'open',

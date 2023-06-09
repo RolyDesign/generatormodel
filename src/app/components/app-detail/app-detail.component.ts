@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from '../shared/local-storage.service';
+import { LocalStorageService } from '../../shared/local-storage.service';
 import { faDownload, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { AppService } from '../shared/app.service';
-import { EntityService } from '../shared/entity.service';
+import { AppService } from '../../shared/app.service';
+import { EntityService } from '../../shared/entity.service';
 const actionsModal = {
   new: 'new',
   open: 'open',
@@ -43,11 +43,6 @@ export class AppDetailComponent implements OnInit {
   }
 
   actions() {
-    this.dataStorage.addDataStorage({
-      Id: 0,
-      Name: '',
-      Entities: [],
-    });
     this.dataStorage.removeDataStorage();
     if (this.actionsModal == actionsModal.new) {
       this.router.navigate(['/new-app']);

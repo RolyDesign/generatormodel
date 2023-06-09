@@ -17,7 +17,7 @@ export class EntityService {
   getAll(): Observable<IEntity[]> {
     return this.dataStorageSvc.getDataStorage().pipe(
       switchMap(res =>{
-        return of(res.Entities)
+        return of(res.Entities.sort((a,b)=>a.Id - b.Id))
       })
     )
   }

@@ -50,15 +50,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GuideComponent } from './guide/guide.component';
 import { ReadmodelsComponent } from './readmodels/readmodels.component';
 import { ModelEditComponent } from './model-edit/model-edit.component';
-import { InitialComponent } from './initial/initial.component';
-import { AppDetailComponent } from './app-detail/app-detail.component';
-import { NewProjectComponent } from './new-project/new-project.component';
-import { EditAppComponent } from './editapp/editapp.component';
-import { CreateEntityComponent } from './create-entity/create-entity.component';
+import { InitialComponent } from './components/initial/initial.component';
+import { AppDetailComponent } from './components/app-detail/app-detail.component';
+import { NewProjectComponent } from './components/new-project/new-project.component';
+
+import { CreateEntityComponent } from './components/create-entity/create-entity.component';
 import{ConfirmComponent}from './shared/components/confirm/confirm.component';
-import { EditEntityComponent } from './edit-entity/edit-entity.component';
-import { AddFieldComponent } from './add-field/add-field.component';
-import { ListFieldsComponent } from './list-fields/list-fields.component'
+import { EditEntityComponent } from './components/edit-entity/edit-entity.component';
+import { AddFieldComponent } from './components/add-field/add-field.component';
+import { ListFieldsComponent } from './components/list-fields/list-fields.component'
+import{EditAppComponent} from './components/editapp/editapp.component'
+
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {

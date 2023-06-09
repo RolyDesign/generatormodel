@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   VALIDATION_FORMS,
   helpeMessage,
-} from '../generator-model/message-validation.const';
+} from '../../generator-model/message-validation.const';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EntityService } from '../shared/entity.service';
+import { EntityService } from '../../shared/entity.service';
 
 @Component({
   selector: 'app-edit-entity',

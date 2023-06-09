@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       }
     });
     const dataLocalStotage = this.dataStorage.getLocalStotage();
-    if (!!dataLocalStotage) {
+    if (dataLocalStotage) {
       this.dataStorage.addDataStorage(dataLocalStotage)
       this.router.navigate(['/']);
     } else {

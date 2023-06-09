@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { appModel } from '../shared/model-interfaces';
-import { LocalStorageService } from '../shared/local-storage.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import {
   VALIDATION_FORMS,
   helpeMessage,
-} from '../generator-model/message-validation.const';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+} from 'src/app/generator-model/message-validation.const';
+import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { appModel } from 'src/app/shared/model-interfaces';
 
 @Component({
   selector: 'app-editapp',
@@ -24,29 +24,29 @@ export class EditAppComponent implements OnInit, OnDestroy {
   app!: FormGroup;
   helpMessage = helpeMessage;
   validationForms = VALIDATION_FORMS;
-  sub!: Subscription
-  data!:appModel
+  sub!: Subscription;
+  data!: appModel;
 
   ngOnInit(): void {
     this.app = this.fb.group({
       Name: ['', [Validators.required]],
     });
 
-    this.sub = this.dataStorageSvc.getDataStorage().subscribe(res=>{
-      this.app.get('Name')?.setValue(res.Name)
+    this.sub = this.dataStorageSvc.getDataStorage().subscribe((res) => {
+      this.app.get('Name')?.setValue(res.Name);
       this.data = {
         Id: res.Id,
         Name: res.Name,
-        Entities: res.Entities
-      }
-    })
+        Entities: res.Entities,
+      };
+    });
   }
 
   editApp() {
-   this.data.Name = this.app.get("Name")?.value
-    this.dataStorageSvc.addDataStorage(this.data)
-   // this.dataStorageSvc.setLocalStotage(data)
-    this.router.navigate(["/app-detail"])
+    this.data.Name = this.app.get('Name')?.value;
+    this.dataStorageSvc.addDataStorage(this.data);
+    // this.dataStorageSvc.setLocalStotage(data)
+    this.router.navigate(['/app-detail']);
   }
 
   get fm() {
@@ -54,6 +54,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe()
+    this.sub.unsubscribe();
   }
 }
