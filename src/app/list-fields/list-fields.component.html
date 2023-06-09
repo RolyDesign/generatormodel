@@ -81,8 +81,8 @@
                   <span *ngFor="let valueValidator of field.ValueValidators" class="d-block"> {{valueValidator}}</span>
                 </td>
                 <td class="text-end">
-                  <span role="button" class="text-info  me-4" [routerLink]="['/entities', entityId, 'fields', field.Id]">Edit</span>
-                  <span data-bs-toggle="modal" data-bs-target="#confirmModalDelete"   role="button" class="text-info">Delete</span>
+                  <span role="button" class="text-info  " [routerLink]="['/entities', entityId, 'fields', field.Id]">Edit</span>
+                  <span *ngIf="field.Name !== 'id'" data-bs-toggle="modal" data-bs-target="#confirmModalDelete"   role="button" class="text-info ms-4">Delete</span>
                 </td>
               </tr>
             </tbody>
