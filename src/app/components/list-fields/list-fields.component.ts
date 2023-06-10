@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { faDownload, faEdit } from '@fortawesome/free-solid-svg-icons';
-
 import { ActivatedRoute, Router } from '@angular/router';
-
-
 import { Observable } from 'rxjs';
 import { IFields } from 'src/app/shared/model-interfaces';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
@@ -36,9 +33,8 @@ export class ListFieldsComponent {
   fieldId!:number
   fieldName!: string;
 
+
   constructor(
-    private dataStorage: LocalStorageService,
-    private router: Router,
     private route: ActivatedRoute,
     private appService: AppService,
     private fieldService: FieldService,
@@ -47,6 +43,9 @@ export class ListFieldsComponent {
 
   ngOnInit(): void {
     this.entityId = Number(this.route.snapshot.paramMap.get('id'))
+    this.entityService.getById(this.entityId).subscribe(res=>{
+      this.entityName = res.Name
+    })
     this.fields = this.fieldService.getAll(this.entityId)
   }
 
@@ -56,10 +55,6 @@ export class ListFieldsComponent {
   }
 
   deletefield() {
-    // this.entityService.deleteEntity(this.id);
-  }
-
-  onEditNameApp() {
-    this.router.navigate(['/edit-app']);
+   this.fieldService.deleteField(this.entityId,this.fieldId)
   }
 }

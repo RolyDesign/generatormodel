@@ -1,38 +1,21 @@
 import { Component } from '@angular/core';
-import {
-  VALIDATION_FORMS,
-  helpeMessage,
-} from '../../generator-model/message-validation.const';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { IEntity, IFields, appModel } from '../../shared/model-interfaces';
-
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocalStorageService } from '../../shared/local-storage.service';
-import {
-  DataTypes,
-  ElementType,
-  Elements,
-  TypeFile,
-  ValidatorsEnum,
-  ValuesValidatorsDynamic,
-} from '../../generator-model/meta-data';
-import { valueValidatorMinAndMaxDate } from '../../shared/value-validator-min-and-max-date.validator';
-import { valueValidatorMaxSizeFile } from '../../shared/value-validator-max-size-file.validator';
-import { valueValidatorTypeFile } from '../../shared/value-validator-type-file.validator ';
-import { FieldService } from '../../shared/field.service';
+import { VALIDATION_FORMS, helpeMessage } from 'src/app/generator-model/message-validation.const';
+import { DataTypes, ElementType, Elements, TypeFile, ValidatorsEnum, ValuesValidatorsDynamic } from 'src/app/generator-model/meta-data';
+import { FieldService } from 'src/app/shared/field.service';
+import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { IEntity, IFields, appModel } from 'src/app/shared/model-interfaces';
+import { valueValidatorMaxSizeFile } from 'src/app/shared/value-validator-max-size-file.validator';
+import { valueValidatorMinAndMaxDate } from 'src/app/shared/value-validator-min-and-max-date.validator';
+import { valueValidatorTypeFile } from 'src/app/shared/value-validator-type-file.validator ';
 
 @Component({
-  selector: 'app-add-field',
-  templateUrl: './add-field.component.html',
-  styleUrls: ['./add-field.component.scss'],
+  selector: 'app-edit-field',
+  templateUrl: './edit-field.component.html',
+  styleUrls: ['./edit-field.component.scss']
 })
-export class AddFieldComponent {
+export class EditFieldComponent {
   helpMessage = helpeMessage;
   fieldForm!: FormGroup;
   validationForms = VALIDATION_FORMS;
@@ -96,6 +79,7 @@ export class AddFieldComponent {
   validatorsEnum = ValidatorsEnum;
   typeFileEnum = TypeFile;
   id!: number;
+  entityId!:number
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -104,37 +88,90 @@ export class AddFieldComponent {
   ) {}
 
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-
-    this.fieldForm = this.fb.group({
-      Name: new FormControl({ value: '', disabled: false }, [
-        Validators.required,
-        Validators.maxLength(100),
-      ]),
-      DisplayName: ['', [Validators.required]],
-      Type: ['', Validators.required],
-      DisplayType: this.fb.group({
-        Element: new FormControl(
-          { value: null, disabled: false },
-          Validators.required
-        ),
-        ElementType: new FormControl(
-          { value: null, disabled: true },
-          Validators.required
-        ),
-        OptionsSelected: this.fb.array([this.buildOptionselected()]),
-        FileOptions: this.fb.group({
-          TypeFile: new FormControl(
-            { value: null, disabled: true },
+    this.id = Number(this.route.snapshot.paramMap.get('fieldid'));
+    this.entityId = Number(this.route.snapshot.paramMap.get('entityid'))
+    this.fieldService.getbById(this.entityId, this.id).subscribe(res =>{
+      this.fieldForm = this.fb.group({
+        Name: new FormControl({ value: res.Name, disabled: res.Name == 'id' }, [
+          Validators.required,
+        ]),
+        DisplayName: new FormControl({ value: res.DisplayName, disabled: res.Name == 'id' }, [
+          Validators.required,
+        ]),
+        Type: [res.Type, Validators.required],
+        DisplayType: this.fb.group({
+          Element: new FormControl(
+            { value: res.DisplayType?.Element ?? null, disabled: res.DisplayType?.Element == null  ? true : false},
             Validators.required
           ),
+          ElementType: new FormControl(
+            { value: res.DisplayType?.ElementType ?? null, disabled: res.DisplayType?.ElementType == null  ? true : false },
+            Validators.required
+          ),
+          OptionsSelected: this.fb.array([...this.initialOptionSelected(res.DisplayType?.OptionsSelected)]),
+          FileOptions: this.fb.group({
+            TypeFile: new FormControl(
+              { value: res.DisplayType?.FileOptions?.TypeFile ?? null, disabled: true },
+              Validators.required
+            ),
+          }),
         }),
-      }),
-      Validators: this.fb.array([this.buildValidators()]),
-      ValueValidators: this.fb.array([this.buildValueValidators()]),
-      AvilitarValidators: new FormControl({ value: false, disabled: false }),
-    });
+        Validators: this.fb.array([...this.initialValidators(res.Validators)]),
+        ValueValidators: this.fb.array([...this.initialValueValidators(res.ValueValidators)]),
+        AvilitarValidators: new FormControl({ value: res.AvilitarValidators ?? null, disabled: res.Name == 'id' }),
+      });
+    })
+
+
     this.observerFieldsList();
+  }
+  initialOptionSelected(options: any[] | undefined): FormControl[] {
+    let optionList: any[] = [];
+    if (options) {
+      options.forEach((el) => {
+        optionList.push(
+          new FormControl(
+            { value: el, disabled: el == null },
+            Validators.required
+          )
+        );
+      });
+      return optionList;
+    }
+    optionList.push(this.buildOptionselected());
+    return optionList;
+  }
+  initialValidators(validator: any[] | undefined): FormControl[] {
+    let validatorList: any[] = [];
+    if (validator) {
+      validator.forEach((el) => {
+        validatorList.push(
+          new FormControl(
+            { value: el, disabled: el == null },
+            Validators.required
+          )
+        );
+      });
+      return validatorList;
+    }
+    validatorList.push(this.buildValidators());
+    return validatorList;
+  }
+  initialValueValidators(value: any[] | undefined): FormControl[] {
+    let valueList: any[] = [];
+    if (value) {
+      value.forEach((el) => {
+        valueList.push(
+          new FormControl(
+            { value: el, disabled: el == null },
+            Validators.required
+          )
+        );
+      });
+      return valueList;
+    }
+    valueList.push(this.buildValueValidators());
+    return valueList;
   }
 
   buildOptionselected(): FormControl {
@@ -191,9 +228,18 @@ export class AddFieldComponent {
       this.getvalueValidators().removeAt(-1);
     }
   }
-  createField() {
-    this.fieldService.add(<IFields>this.fieldForm.value, this.id);
-    this.router.navigate(['/entities', this.id, 'fields']);
+  editField() {
+    if(this.fieldForm.get('Name')?.value == 'id'){
+      const field: IFields = {
+        Name:this.fieldForm.get('Name')?.value ,
+        DisplayName: this.fieldForm.get('DisplayName')?.value,
+        ...this.fieldForm.value
+      }
+      this.fieldService.editField(field,this.entityId, this.id);
+    }else{
+      this.fieldService.editField(<IFields>this.fieldForm.value,this.entityId ,this.id);
+    }
+    this.router.navigate(['/entities', this.entityId, 'fields']);
   }
   getLastFieldId(fields: IFields[]): number {
     let id = 1;

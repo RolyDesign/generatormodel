@@ -59,7 +59,8 @@ import{ConfirmComponent}from './shared/components/confirm/confirm.component';
 import { EditEntityComponent } from './components/edit-entity/edit-entity.component';
 import { AddFieldComponent } from './components/add-field/add-field.component';
 import { ListFieldsComponent } from './components/list-fields/list-fields.component'
-import{EditAppComponent} from './components/editapp/editapp.component'
+import{EditAppComponent} from './components/editapp/editapp.component';
+import { EditFieldComponent } from './components/edit-field/edit-field.component'
 
 
 
@@ -74,7 +75,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, GeneratorModelComponent, GuideComponent, ReadmodelsComponent, ModelEditComponent, InitialComponent, AppDetailComponent, NewProjectComponent, EditAppComponent, CreateEntityComponent, EditEntityComponent, AddFieldComponent, ListFieldsComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, GeneratorModelComponent, GuideComponent, ReadmodelsComponent, ModelEditComponent, InitialComponent, AppDetailComponent, NewProjectComponent, EditAppComponent, CreateEntityComponent, EditEntityComponent, AddFieldComponent, ListFieldsComponent, EditFieldComponent],
   imports: [
     ConfirmComponent,
     BrowserModule,

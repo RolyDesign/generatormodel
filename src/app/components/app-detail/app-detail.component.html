@@ -42,7 +42,7 @@
                   {{entity.Fields.length}}
                 </td>
                 <td class="text-end">
-                  <span role="button" class="text-info  me-4" [routerLink]="['/entities', entity.Id]">Edit</span>
+                  <span role="button" class="text-info  me-4" [routerLink]="['/entities', entity.Id, 'edit']">Edit</span>
                   <span data-bs-toggle="modal" data-bs-target="#confirmModalDelete"  (click)="onActions('delete',entity.Id, entity.Name)" role="button" class="text-info  me-4">Delete</span>
                   <!-- <span role="button" class=" text-info  me-4" [routerLink]="['/entities', entity.Id, 'fields', 'add']">Add Field </span> -->
                   <span role="button" class=" text-info " [routerLink]="['/entities', entity.Id, 'fields']">Fields</span>

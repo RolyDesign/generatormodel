@@ -19,6 +19,7 @@ import { EditEntityComponent } from './components/edit-entity/edit-entity.compon
 import { AddFieldComponent } from './components/add-field/add-field.component';
 import { ListFieldsComponent } from './components/list-fields/list-fields.component';
 import { NewProjectComponent } from './components/new-project/new-project.component';
+import { EditFieldComponent } from './components/edit-field/edit-field.component';
 
 
 
@@ -59,7 +60,7 @@ const routes: Routes = [
         title:'Add Entity'
       },
       {
-        path: 'entities/:id',
+        path: 'entities/:id/edit',
         component: EditEntityComponent,
         title:'Edit Entity'
       },
@@ -72,6 +73,11 @@ const routes: Routes = [
         path: 'entities/:id/fields',
         component: ListFieldsComponent,
         title:'Fields'
+      },
+      {
+        path: 'entities/:entityid/fields/:fieldid',
+        component: EditFieldComponent,
+        title:'Edit Fields'
       },
       // {
       //   path: 'models',

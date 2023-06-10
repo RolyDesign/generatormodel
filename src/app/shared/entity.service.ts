@@ -57,17 +57,15 @@ export class EntityService {
       AppId: currentdata.Id,
       Fields: currentdata.Entities.find(e => e.Id === entityId)?.Fields as IFields[],
     };
-    const entityList = currentdata.Entities.filter(e => e.Id !== entityId);
-    entityList.push(newEntity)
-    currentdata.Entities = entityList
+    const indexCurrentEntity = currentdata.Entities.findIndex(e => e.Id === entityId);
+    currentdata.Entities[indexCurrentEntity] = newEntity
     this.dataStorageSvc.addDataStorage(currentdata);
-
   }
 
   deleteEntity(id:number){
-    const data = <appModel>this.dataStorageSvc.getLocalStotage()
-    const entities = data.Entities.filter(e => e.Id !== id);
-    data.Entities = entities
+    let data = <appModel>this.dataStorageSvc.getLocalStotage()
+    const indexCurrentEntity = data.Entities.findIndex(e => e.Id === id);
+    let newdata = data.Entities.splice(indexCurrentEntity,1)
     this.dataStorageSvc.addDataStorage(data)
   }
 
