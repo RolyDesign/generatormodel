@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { faDownload, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { IFields } from 'src/app/shared/model-interfaces';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { AppService } from 'src/app/shared/app.service';
@@ -18,7 +18,7 @@ const actionsModal = {
   templateUrl: './list-fields.component.html',
   styleUrls: ['./list-fields.component.scss']
 })
-export class ListFieldsComponent {
+export class ListFieldsComponent  {
   data = this.appService.getAll();
   fields!: Observable<IFields[]>
   icon = {
@@ -34,6 +34,7 @@ export class ListFieldsComponent {
   fieldName!: string;
 
 
+
   constructor(
     private route: ActivatedRoute,
     private appService: AppService,
@@ -41,9 +42,12 @@ export class ListFieldsComponent {
     private entityService: EntityService
   ) {}
 
+
   ngOnInit(): void {
     this.entityId = Number(this.route.snapshot.paramMap.get('id'))
-    this.entityService.getById(this.entityId).subscribe(res=>{
+    this.entityService.getById(this.entityId).pipe(
+      take(1)
+    ).subscribe(res=>{
       this.entityName = res.Name
     })
     this.fields = this.fieldService.getAll(this.entityId)
@@ -57,4 +61,7 @@ export class ListFieldsComponent {
   deletefield() {
    this.fieldService.deleteField(this.entityId,this.fieldId)
   }
+
+
+
 }

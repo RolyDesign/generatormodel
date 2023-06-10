@@ -105,7 +105,8 @@ const APP_CONTAINERS = [
     ListGroupModule,
     CardModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormModule
   ],
   providers: [
     {

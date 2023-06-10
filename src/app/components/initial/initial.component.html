@@ -1,5 +1,5 @@
 <div class="vh-100 d-flex justify-content-center align-items-center bg-secondary">
-  <div class="card d-flex flex-row " style="width: 40rem;">
+  <div class="card d-flex flex-row shadow " style="width: 40rem;">
     <div class="card-body w-50">
       <h5 class="card-title text-center m-3">Welcome to Eva Tools</h5>
       <p class="card-text text-center py-3">Herramienta desarrollada para la creacion de modelos compatibles con EVA app.</p>
@@ -8,7 +8,7 @@
           <button style="width: 10rem;" class="btn btn-primary btn-sm" routerLink="/new-app">New Project</button>
         </li>
         <li>
-          <button style="width: 10rem;" class="btn btn-primary btn-sm" routerLink="/initial">Open Project</button>
+          <button (click)="onOpenProject()" style="width: 10rem;" class="btn btn-primary btn-sm" routerLink="/initial">Open Project</button>
         </li>
       </ul>
     </div>
@@ -18,3 +18,5 @@
 
   </div>
 </div>
+
+<input accept=".evaproj" (change)="catchFile($event,'file')" class="d-none" #upload type="file">

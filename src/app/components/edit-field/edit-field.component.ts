@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
 import { VALIDATION_FORMS, helpeMessage } from 'src/app/generator-model/message-validation.const';
 import { DataTypes, ElementType, Elements, TypeFile, ValidatorsEnum, ValuesValidatorsDynamic } from 'src/app/generator-model/meta-data';
 import { FieldService } from 'src/app/shared/field.service';
@@ -90,7 +91,7 @@ export class EditFieldComponent {
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('fieldid'));
     this.entityId = Number(this.route.snapshot.paramMap.get('entityid'))
-    this.fieldService.getbById(this.entityId, this.id).subscribe(res =>{
+    this.fieldService.getbById(this.entityId, this.id).pipe(take(1)).subscribe(res =>{
       this.fieldForm = this.fb.group({
         Name: new FormControl({ value: res.Name, disabled: res.Name == 'id' }, [
           Validators.required,

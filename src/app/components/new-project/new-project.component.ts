@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VALIDATION_FORMS, helpeMessage } from 'src/app/generator-model/message-validation.const';
+import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { appModel } from 'src/app/shared/model-interfaces';
 
@@ -12,17 +13,21 @@ import { appModel } from 'src/app/shared/model-interfaces';
 })
 export class NewProjectComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private dataStorage: LocalStorageService, private router: Router) {}
+  constructor(private fb: FormBuilder, private dataStorage: LocalStorageService, private router: Router, private actionModal: ActionModalHeaerService) {}
   app!: FormGroup;
   helpMessage = helpeMessage;
   validationForms = VALIDATION_FORMS;
   data!:appModel
+
 
   ngOnInit(): void {
     this.app = this.fb.group({
       Name:['',[Validators.required]]
     })
   }
+
+
+
   createApp(){
     this.data = {
       Id:1,
@@ -36,4 +41,7 @@ export class NewProjectComponent implements OnInit {
   get fm() {
     return this.app.controls;
   }
+
+
+
 }

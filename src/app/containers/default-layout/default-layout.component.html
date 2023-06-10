@@ -51,7 +51,7 @@
   <!--app footer-->
   <!-- <app-default-footer></app-default-footer> -->
 </div>
-
+<input accept=".evaproj" (change)="catchFile($event,'file')" class="d-none" #upload type="file">
 <confirm  (action)="actions()" [confirmMessage]="messageModal " modalTitle="Alert!!!"></confirm>
 
 

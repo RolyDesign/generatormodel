@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -11,6 +11,7 @@ const actionsModal = {
   new: 'new',
   open: 'open',
   close: 'close',
+  export:'export'
 };
 
 @Component({
@@ -29,6 +30,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   actionsModal!: string;
   actionsModalsConst = actionsModal;
 
+
   constructor(
     private appService: AppService,
     private dataStorage: LocalStorageService,
@@ -38,6 +40,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
     super();
   }
 
+
+
+
   onActions(action: string) {
     this.acctionModalService.action = action;
     if (action == actionsModal.new) {
@@ -45,9 +50,13 @@ export class DefaultHeaderComponent extends HeaderComponent {
     }
     if (action == actionsModal.open) {
       this.acctionModalService.messageModal = this.confirmMessage;
+
     }
     if (action == actionsModal.close) {
       this.acctionModalService.messageModal = this.confirmMessage;
+    }
+    if (action == actionsModal.export) {
+      this.acctionModalService.messageModal = "El arvhivo se guardara en el directorio download de su pc";
     }
   }
 
