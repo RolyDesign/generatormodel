@@ -7,11 +7,15 @@ import { faDownload, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { AppService } from 'src/app/shared/app.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.service';
+import Ajv from 'ajv';
+import { schema } from 'src/app/shared/schema';
+import { appModel } from 'src/app/shared/model-interfaces';
 const actionsModal = {
   new: 'new',
   open: 'open',
   close: 'close',
-  export:'export'
+  export:'export',
+  exportFailed: 'exportFailed'
 };
 
 @Component({
@@ -40,9 +44,6 @@ export class DefaultHeaderComponent extends HeaderComponent {
     super();
   }
 
-
-
-
   onActions(action: string) {
     this.acctionModalService.action = action;
     if (action == actionsModal.new) {
@@ -56,7 +57,23 @@ export class DefaultHeaderComponent extends HeaderComponent {
       this.acctionModalService.messageModal = this.confirmMessage;
     }
     if (action == actionsModal.export) {
-      this.acctionModalService.messageModal = "El arvhivo se guardara en el directorio download de su pc";
+      const data = this.dataStorage.getLocalStotage() as appModel
+      let ajv = new Ajv();
+      ajv.addKeyword('dependentRequired');
+      const sch = schema;
+      const validate = ajv.compile(sch);
+      try {
+        const valid = validate(data);
+        if (!valid) {
+          console.error("Para exportar debe tener al menos una entidad creada", validate.errors)
+          this.acctionModalService.messageModal = "El modelo no cumple con el schema. Para exportar debe tener al menos una entidad creada";
+          this.acctionModalService.action = actionsModal.exportFailed
+        } else {
+          this.acctionModalService.messageModal = "El arvhivo se guardara en el directorio download de su pc";
+        }
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 

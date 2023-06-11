@@ -10,11 +10,14 @@ import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.servi
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { saveAs } from 'file-saver';
+import { schema } from 'src/app/shared/schema';
+import Ajv from 'ajv';
 const actionsModal = {
   new: 'new',
   open: 'open',
   close: 'close',
   export: 'export',
+  exportFailed: 'exportFailed'
 };
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +30,8 @@ export class DefaultLayoutComponent implements OnInit {
     suppressScrollX: true,
   };
   messageModal!: string;
+  messageError = '';
+  showModal = false
 
   constructor(
     private dataStorage: LocalStorageService,
@@ -50,9 +55,31 @@ export class DefaultLayoutComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsText(myfile);
       reader.onload = () => {
-        this.dataStorage.addDataStorage(JSON.parse(reader.result as string))
+        var ajv = new Ajv();
+        ajv.addKeyword('dependentRequired');
+        const sch = schema;
+        const validate = ajv.compile(sch);
+        try {
+          const valid = validate(JSON.parse(reader.result as string));
+          if (!valid) {
+            console.error("El modelo no cumple con el schema ", validate.errors)
+            this.messageError = `El modelo no cumple con el schema`;
+            this.showModal = true
+          } else {
+            this.showModal = false
+            this.messageError = '';
+            this.dataStorage.addDataStorage(
+              JSON.parse(reader.result as string)
+            );
+            this.router.navigate(['/app/detail']);
+          }
+        } catch {
+          this.messageError = 'Error en el modelo seleccionado';
+          this.showModal = true
+        }
       };
     }
+    e.target.value = null
 
   }
 
