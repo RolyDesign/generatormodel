@@ -1,217 +1,281 @@
-<div style="height: calc(100vh - 4.1rem);" class=" d-flex justify-content-center align-items-center  ">
-  <form [formGroup]="fieldForm" (ngSubmit)="editField()" class=" mt-3 w-75">
-    <div class="card shadow">
-      <div class="card-header">
-        <div class=" d-flex justify-content-between align-items-center p-2">
-          <span class="fs-4">Edit Field</span>
-          <button type="button" [routerLink]="['/entities', entityId,'fields']"  class="btn-close" aria-label="Close"></button>
-        </div>
-      </div>
-      <div class="card-body ">
-        <div class="p-2 row">
-          <div class="col-md-4">
-            <!--  name -->
-            <div>
-              <label for="Name" class=" form-label">Field Name:</label>
-              <div>
-                <input [title]="helpMessage.entityname" id="Name" formControlName="Name"
-                  class="form-control form-control-sm " type="text" placeholder=" Name" autocomplete="off"
-                  [ngClass]="{'is-invalid': (fm['Name'].touched || fm['Name'].dirty) && !fm['Name'].valid}">
-                <div class="spacer"
-                  [ngClass]="{'d-none': (fm['Name'].touched || fm['Name'].dirty) && !fm['Name'].valid }">
-                </div>
-                <span class="invalid-feedback">
-                  <em class="d-block" *ngIf="fm['Name']?.hasError('required')">
-                    {{validationForms.required}}
-                  </em>
-                </span>
-              </div>
-            </div>
-
-            <!-- Display  name -->
-            <div>
-              <label for="DisplayName" class=" form-label">Field Display Name:</label>
-              <div>
-                <input [title]="helpMessage.DisplayName" id="DisplayName" formControlName="DisplayName"
-                  class="form-control form-control-sm " type="text" placeholder="Display Name" autocomplete="off"
-                  [ngClass]="{'is-invalid': (fm['DisplayName'].touched || fm['DisplayName'].dirty) && !fm['DisplayName'].valid}">
-                <div class="spacer"
-                  [ngClass]="{'d-none': (fm['DisplayName'].touched || fm['DisplayName'].dirty) && !fm['DisplayName'].valid }">
-                </div>
-                <span class="invalid-feedback">
-                  <em class="d-block" *ngIf="fm['DisplayName']?.hasError('required')">
-                    {{validationForms.required}}
-                  </em>
-                </span>
-              </div>
-            </div>
-
-            <!-- Type -->
-            <div>
-              <label class="form-label">Field Type</label>
-              <select id="'Type" class="form-select form-select-sm" aria-label="Default select example"
-                formControlName="Type"
-                [ngClass]="{'is-invalid': (fm['Type'].touched || fm['Type'].dirty) && !fm['Type'].valid }">
-                <option disabled selected value="">Select Type</option>
-                <ng-container *ngIf="fm['Name']?.value == 'id'">
-                  <option [value]="dataTypeEnum.number">{{dataTypeEnum.number}}</option>
-                  <option [value]="dataTypeEnum.string">{{dataTypeEnum.string}}</option>
-                </ng-container>
-                <ng-container *ngIf="fm['Name']?.value !== 'id'">
-                  <option *ngFor="let opt of dataTypes" [value]="opt">{{opt}}</option>
-                </ng-container>
-
-              </select>
-              <div class="spacer"
-                [ngClass]="{'d-none': (fm['Type'].touched || fm['Type'].dirty) && !fm['Type'].valid }">
-              </div>
-              <span class="invalid-feedback">
-                <em class="d-block" *ngIf="fm['Type']?.hasError('required')">
-                  {{validationForms.required}}
-                </em>
-              </span>
-            </div>
-
-            <!-- Avilitar Validators -->
-            <div class="form-check">
-              <input formControlName="AvilitarValidators" class="form-check-input" type="checkbox" value=""
-                id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                Asign Validators
-              </label>
-            </div>
+<div style="background-color:#0000157b;" class="modal fade d-block show" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div style="height: 100vh ;" class=" d-flex justify-content-center align-items-center  ">
+    <form [formGroup]="fieldForm" (ngSubmit)="editField()" class=" mt-3 w-75">
+      <div class="card shadow">
+        <div class="card-header">
+          <div class=" d-flex justify-content-between align-items-center p-2">
+            <span class="fs-4">Edit Field</span>
+            <button type="button" [routerLink]="['/entities', entityId,'fields']" class="btn-close"
+              aria-label="Close"></button>
           </div>
-          <div class="col-md-4">
-            <div class="">
-              <div formGroupName="DisplayType" class="row">
-                <div class="col-md-6">
-                  <!-- Element -->
-                  <div>
-                    <label for="Element" class="form-label">Element HTML</label>
-                    <select id="Element" class="form-select form-select-sm" aria-label="Default select example"
-                      formControlName="Element"
-                      [ngClass]="{'is-invalid': (dType?.get('Element')?.touched || dType?.get('Element')?.dirty) && !dType?.get('Element')?.valid }">
-                      <option disabled selected [value]="null">Select Element</option>
-                      <ng-container *ngIf="fm['Type'].value == dataTypeEnum.boolean">
-                        <option [value]="elementsEnum.input">{{elementsEnum.input}}</option>
-                      </ng-container>
-                      <ng-container *ngIf="fm['Type'].value == dataTypeEnum.date">
-                        <option [value]="elementsEnum.input">{{elementsEnum.input}}</option>
-                      </ng-container>
-                      <ng-container *ngIf="fm['Type'].value == dataTypeEnum.customType
-                || fm['Type'].value == dataTypeEnum.stringArray
-                || fm['Type'].value == dataTypeEnum.numberArray
-                || fm['Type'].value == dataTypeEnum.anyArray
-                || fm['Type'].value == dataTypeEnum.boleanArray">
-                        <option [value]="elementsEnum.select">{{elementsEnum.select}}</option>
-                      </ng-container>
-                      <ng-container *ngIf="fm['Type'].value !== dataTypeEnum.boolean
-                && fm['Type']?.value !== dataTypeEnum.customType
-                && fm['Type'].value !== dataTypeEnum.date
-                && fm['Type'].value !== dataTypeEnum.stringArray
-                && fm['Type'].value !== dataTypeEnum.numberArray
-                && fm['Type'].value !== dataTypeEnum.anyArray
-                && fm['Type'].value !== dataTypeEnum.boleanArray ">
-                        <option *ngFor="let opt of element" [value]="opt">{{opt}}</option>
-                      </ng-container>
-
-                    </select>
-                    <div class="spacer"
-                      [ngClass]="{'d-none': (dType?.get('Element')?.touched || dType?.get('Element')?.dirty) && !dType?.get('Element')?.valid }">
-                    </div>
-                    <span class="invalid-feedback">
-                      <em class="d-block" *ngIf="dType?.get('Element')?.hasError('required')">
-                        {{validationForms.required}}
-                      </em>
-                    </span>
+        </div>
+        <div class="card-body ">
+          <div class="p-2 row">
+            <div class="col-md-4">
+              <!--  name -->
+              <div>
+                <label for="Name" class=" form-label">Field Name:</label>
+                <div>
+                  <input [title]="helpMessage.entityname" id="Name" formControlName="Name"
+                    class="form-control form-control-sm " type="text" placeholder=" Name" autocomplete="off"
+                    [ngClass]="{'is-invalid': (fm['Name'].touched || fm['Name'].dirty) && !fm['Name'].valid}">
+                  <div class="spacer"
+                    [ngClass]="{'d-none': (fm['Name'].touched || fm['Name'].dirty) && !fm['Name'].valid }">
                   </div>
-
-                  <!-- ***********************elementType************************** -->
-                  <div>
-                    <label for="ElementType" class="form-label">Element Type</label>
-                    <select id="ElementType" class="form-select form-select-sm" aria-label="Default select example"
-                      formControlName="ElementType"
-                      [ngClass]="{'is-invalid': (dType?.get('ElementType')?.touched || dType?.get('ElementType')?.dirty) && !dType?.get('ElementType')?.valid  && !dType?.get('ElementType')?.disabled}">
-                      <option disabled selected [value]=null>Select Type</option>
-
-                      <ng-container *ngIf="fm['Type'].value == dataTypeEnum.boolean">
-                        <option [value]="elementTypeEnum.checkbox">{{elementTypeEnum.checkbox}}</option>
-                        <option [value]="elementTypeEnum.radio">{{elementTypeEnum.radio}}</option>
-                      </ng-container>
-                      <ng-container *ngIf="fm['Type']?.value == dataTypeEnum.date">
-                        <option [value]="elementTypeEnum.date">{{elementTypeEnum.date}}</option>
-                        <option [value]="elementTypeEnum.month">{{elementTypeEnum.month}}</option>
-                        <option [value]="elementTypeEnum.week">{{elementTypeEnum.week}}</option>
-                        <option [value]="elementTypeEnum.time">{{elementTypeEnum.time}}</option>
-                      </ng-container>
-                      <ng-container
-                        *ngIf="fm['Type']?.value !== dataTypeEnum.boolean && fm['Type']?.value !== dataTypeEnum.date ">
-                        <option *ngFor="let opt of elementType" [value]="opt">{{opt}}</option>
-                      </ng-container>
-                    </select>
-                    <div class="spacer"
-                      [ngClass]="{'d-none': (dType?.get('ElementType')?.touched || dType?.get('ElementType')?.dirty) && !dType?.get('ElementType')?.valid && !dType?.get('ElementType')?.disabled }">
-                    </div>
-                    <span class="invalid-feedback">
-                      <em class="d-block" *ngIf="dType?.get('ElementType')?.hasError('required')">
-                        {{validationForms.required}}
-                      </em>
-                    </span>
-                  </div>
-
-                  <div formGroupName="FileOptions">
-                    <!-- ***********************Type File************************** -->
-                    <label class="form-label">TypeFile</label>
-                    <select id="TypeFile" class="form-select form-select-sm" aria-label="TypeFile"
-                      formControlName="TypeFile"
-                      [ngClass]="{'is-invalid': (fOpt?.get('TypeFile')?.touched || fOpt?.get('TypeFile')?.dirty) && !fOpt?.get('TypeFile')?.valid && !fOpt?.get('TypeFile')?.disabled }">
-                      <option disabled selected [value]='null'>Select Type File</option>
-                      <option *ngFor="let opt of typeFile" [value]="opt">{{opt}}</option>
-                    </select>
-                    <div class="spacer"
-                      [ngClass]="{'d-none': (fOpt?.get('TypeFile')?.touched || fOpt?.get('TypeFile')?.dirty) && !fOpt?.get('TypeFile')?.valid && !fOpt?.get('TypeFile')?.disabled}">
-                    </div>
-                    <span class="invalid-feedback">
-                      <em class="d-block" *ngIf="fOpt?.get('TypeFile')?.hasError('required')">
-                        {{validationForms.required}}
-                      </em>
-                    </span>
-                  </div>
+                  <span class="invalid-feedback">
+                    <em class="d-block" *ngIf="fm['Name']?.hasError('required')">
+                      {{validationForms.required}}
+                    </em>
+                  </span>
                 </div>
-                <div class="col-md-6">
-                  <!-- Options Selected -->
-                  <div>
-                    <div class="d-flex  justify-content-between ">
-                      <span class=" form-label">Options</span>
-                      <div>
-                        <button type="button" (click)="addOptionSelected()"
-                          [disabled]="dType?.get('Element')?.value != elementsEnum.select"
-                          class="btn btn-link btn-sm text-decoration-none  text-info">
-                          Add
-                        </button>
-                        <button type="button" class="btn btn-link btn-sm  text-decoration-none   text-info "
-                          (click)="removeOptionSelected()">
-                          Delete
-                        </button>
+              </div>
+
+              <!-- Display  name -->
+              <div>
+                <label for="DisplayName" class=" form-label">Field Display Name:</label>
+                <div>
+                  <input [title]="helpMessage.DisplayName" id="DisplayName" formControlName="DisplayName"
+                    class="form-control form-control-sm " type="text" placeholder="Display Name" autocomplete="off"
+                    [ngClass]="{'is-invalid': (fm['DisplayName'].touched || fm['DisplayName'].dirty) && !fm['DisplayName'].valid}">
+                  <div class="spacer"
+                    [ngClass]="{'d-none': (fm['DisplayName'].touched || fm['DisplayName'].dirty) && !fm['DisplayName'].valid }">
+                  </div>
+                  <span class="invalid-feedback">
+                    <em class="d-block" *ngIf="fm['DisplayName']?.hasError('required')">
+                      {{validationForms.required}}
+                    </em>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Type -->
+              <div>
+                <label class="form-label">Field Type</label>
+                <select id="'Type" class="form-select form-select-sm" aria-label="Default select example"
+                  formControlName="Type"
+                  [ngClass]="{'is-invalid': (fm['Type'].touched || fm['Type'].dirty) && !fm['Type'].valid }">
+                  <option disabled selected value="">Select Type</option>
+                  <ng-container *ngIf="fm['Name']?.value == 'id'">
+                    <option [value]="dataTypeEnum.number">{{dataTypeEnum.number}}</option>
+                    <option [value]="dataTypeEnum.string">{{dataTypeEnum.string}}</option>
+                  </ng-container>
+                  <ng-container *ngIf="fm['Name']?.value !== 'id'">
+                    <option *ngFor="let opt of dataTypes" [value]="opt">{{opt}}</option>
+                  </ng-container>
+
+                </select>
+                <div class="spacer"
+                  [ngClass]="{'d-none': (fm['Type'].touched || fm['Type'].dirty) && !fm['Type'].valid }">
+                </div>
+                <span class="invalid-feedback">
+                  <em class="d-block" *ngIf="fm['Type']?.hasError('required')">
+                    {{validationForms.required}}
+                  </em>
+                </span>
+              </div>
+
+              <!-- Avilitar Validators -->
+              <div class="form-check">
+                <input formControlName="AvilitarValidators" class="form-check-input" type="checkbox" value=""
+                  id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Asign Validators
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="">
+                <div formGroupName="DisplayType" class="row">
+                  <div class="col-md-6">
+                    <!-- Element -->
+                    <div>
+                      <label for="Element" class="form-label">Element HTML</label>
+                      <select id="Element" class="form-select form-select-sm" aria-label="Default select example"
+                        formControlName="Element"
+                        [ngClass]="{'is-invalid': (dType?.get('Element')?.touched || dType?.get('Element')?.dirty) && !dType?.get('Element')?.valid }">
+                        <option disabled selected [value]="null">Select Element</option>
+                        <ng-container *ngIf="fm['Type'].value == dataTypeEnum.boolean">
+                          <option [value]="elementsEnum.input">{{elementsEnum.input}}</option>
+                        </ng-container>
+                        <ng-container *ngIf="fm['Type'].value == dataTypeEnum.date">
+                          <option [value]="elementsEnum.input">{{elementsEnum.input}}</option>
+                        </ng-container>
+                        <ng-container *ngIf="fm['Type'].value == dataTypeEnum.customType
+                    || fm['Type'].value == dataTypeEnum.stringArray
+                    || fm['Type'].value == dataTypeEnum.numberArray
+                    || fm['Type'].value == dataTypeEnum.anyArray
+                    || fm['Type'].value == dataTypeEnum.boleanArray">
+                          <option [value]="elementsEnum.select">{{elementsEnum.select}}</option>
+                        </ng-container>
+                        <ng-container *ngIf="fm['Type'].value !== dataTypeEnum.boolean
+                    && fm['Type']?.value !== dataTypeEnum.customType
+                    && fm['Type'].value !== dataTypeEnum.date
+                    && fm['Type'].value !== dataTypeEnum.stringArray
+                    && fm['Type'].value !== dataTypeEnum.numberArray
+                    && fm['Type'].value !== dataTypeEnum.anyArray
+                    && fm['Type'].value !== dataTypeEnum.boleanArray ">
+                          <option *ngFor="let opt of element" [value]="opt">{{opt}}</option>
+                        </ng-container>
+
+                      </select>
+                      <div class="spacer"
+                        [ngClass]="{'d-none': (dType?.get('Element')?.touched || dType?.get('Element')?.dirty) && !dType?.get('Element')?.valid }">
+                      </div>
+                      <span class="invalid-feedback">
+                        <em class="d-block" *ngIf="dType?.get('Element')?.hasError('required')">
+                          {{validationForms.required}}
+                        </em>
+                      </span>
+                    </div>
+
+                    <!-- ***********************elementType************************** -->
+                    <div>
+                      <label for="ElementType" class="form-label">Element Type</label>
+                      <select id="ElementType" class="form-select form-select-sm" aria-label="Default select example"
+                        formControlName="ElementType"
+                        [ngClass]="{'is-invalid': (dType?.get('ElementType')?.touched || dType?.get('ElementType')?.dirty) && !dType?.get('ElementType')?.valid  && !dType?.get('ElementType')?.disabled}">
+                        <option disabled selected [value]=null>Select Type</option>
+
+                        <ng-container *ngIf="fm['Type'].value == dataTypeEnum.boolean">
+                          <option [value]="elementTypeEnum.checkbox">{{elementTypeEnum.checkbox}}</option>
+                          <option [value]="elementTypeEnum.radio">{{elementTypeEnum.radio}}</option>
+                        </ng-container>
+                        <ng-container *ngIf="fm['Type']?.value == dataTypeEnum.date">
+                          <option [value]="elementTypeEnum.date">{{elementTypeEnum.date}}</option>
+                          <option [value]="elementTypeEnum.month">{{elementTypeEnum.month}}</option>
+                          <option [value]="elementTypeEnum.week">{{elementTypeEnum.week}}</option>
+                          <option [value]="elementTypeEnum.time">{{elementTypeEnum.time}}</option>
+                        </ng-container>
+                        <ng-container
+                          *ngIf="fm['Type']?.value !== dataTypeEnum.boolean && fm['Type']?.value !== dataTypeEnum.date ">
+                          <option *ngFor="let opt of elementType" [value]="opt">{{opt}}</option>
+                        </ng-container>
+                      </select>
+                      <div class="spacer"
+                        [ngClass]="{'d-none': (dType?.get('ElementType')?.touched || dType?.get('ElementType')?.dirty) && !dType?.get('ElementType')?.valid && !dType?.get('ElementType')?.disabled }">
+                      </div>
+                      <span class="invalid-feedback">
+                        <em class="d-block" *ngIf="dType?.get('ElementType')?.hasError('required')">
+                          {{validationForms.required}}
+                        </em>
+                      </span>
+                    </div>
+
+                    <div formGroupName="FileOptions">
+                      <!-- ***********************Type File************************** -->
+                      <label class="form-label">TypeFile</label>
+                      <select id="TypeFile" class="form-select form-select-sm" aria-label="TypeFile"
+                        formControlName="TypeFile"
+                        [ngClass]="{'is-invalid': (fOpt?.get('TypeFile')?.touched || fOpt?.get('TypeFile')?.dirty) && !fOpt?.get('TypeFile')?.valid && !fOpt?.get('TypeFile')?.disabled }">
+                        <option disabled selected [value]='null'>Select Type File</option>
+                        <option *ngFor="let opt of typeFile" [value]="opt">{{opt}}</option>
+                      </select>
+                      <div class="spacer"
+                        [ngClass]="{'d-none': (fOpt?.get('TypeFile')?.touched || fOpt?.get('TypeFile')?.dirty) && !fOpt?.get('TypeFile')?.valid && !fOpt?.get('TypeFile')?.disabled}">
+                      </div>
+                      <span class="invalid-feedback">
+                        <em class="d-block" *ngIf="fOpt?.get('TypeFile')?.hasError('required')">
+                          {{validationForms.required}}
+                        </em>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- Options Selected -->
+                    <div>
+                      <div class="d-flex  justify-content-between ">
+                        <span class=" form-label">Options</span>
+                        <div>
+                          <button type="button" (click)="addOptionSelected()"
+                            [disabled]="dType?.get('Element')?.value != elementsEnum.select"
+                            class="btn btn-link btn-sm text-decoration-none  text-info">
+                            Add
+                          </button>
+                          <button type="button" class="btn btn-link btn-sm  text-decoration-none   text-info "
+                            (click)="removeOptionSelected()">
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                      <div class="dinamic-Array">
+                        <div formArrayName="OptionsSelected"
+                          *ngFor="let opt of getoptionSelected().controls; let j = index">
+                          <div>
+                            <input [formControlName]="j" class="form-control form-control-sm" type="text"
+                              placeholder="Options Selected"
+                              [ngClass]="{'is-invalid': (getoptionSelected().get(j.toString())?.touched || getoptionSelected().get(j.toString())?.dirty) && (!getoptionSelected().get(j.toString())?.disabled && !getoptionSelected().get(j.toString())?.valid)}">
+
+                            <div class="spacer"
+                              [ngClass]="{'d-none': (getoptionSelected().get(j.toString())?.touched || getoptionSelected().get(j.toString())?.dirty) && (!getoptionSelected().get(j.toString())?.disabled && !getoptionSelected().get(j.toString())?.valid )}">
+                            </div>
+                            <span class="invalid-feedback">
+                              <em class="d-block" *ngIf="getoptionSelected().get(j.toString())?.hasError('required')">
+                                {{validationForms.required}}
+                              </em>
+                              <em class="d-block" *ngIf="getoptionSelected().get(j.toString())?.hasError('maxlength')">
+                                {{validationForms.maxlength}}
+                              </em>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="dinamic-Array">
-                      <div formArrayName="OptionsSelected"
-                        *ngFor="let opt of getoptionSelected().controls; let j = index">
-                        <div>
-                          <input [formControlName]="j" class="form-control form-control-sm" type="text"
-                            placeholder="Options Selected"
-                            [ngClass]="{'is-invalid': (getoptionSelected().get(j.toString())?.touched || getoptionSelected().get(j.toString())?.dirty) && (!getoptionSelected().get(j.toString())?.disabled && !getoptionSelected().get(j.toString())?.valid)}">
+                  </div>
 
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-12 d-flex justify-content-between">
+                  <span class="form-label">Validators & Values</span>
+                  <div class="">
+                    <button type="button" (click)="addValidatorAndValue()" [disabled]="!fm['AvilitarValidators'].value"
+                      class="btn btn-link btn-sm text-decoration-none  text-info">
+                      Add
+                    </button>
+                    <button type="button" (click)="removeValidatorAndValue()"
+                      class="btn btn-link btn-sm  text-decoration-none   text-info ">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="row dinamic-Array">
+                <!-- ********************************* validator****************************** -->
+                <div class="col-md-6">
+                  <div>
+                    <div class="">
+                      <div formArrayName="Validators" *ngFor="let os of getvalidators().controls; let v = index">
+                        <div>
+                          <select class="form-select form-select-sm" aria-label="Default select example"
+                            [formControlName]="v"
+                            [ngClass]="{'is-invalid': (getvalidators().get(v.toString())?.touched || getvalidators().get(v.toString())?.dirty) && !getvalidators().get(v.toString())?.valid  && !getvalidators().get(v.toString())?.disabled}">
+                            <option disabled selected [value]="null">Select Validator</option>
+                            <ng-container *ngIf="fm['Type']?.value == dataTypeEnum.date">
+                              <option [value]="validatorsEnum.minDate">{{validatorsEnum.minDate}}</option>
+                              <option [value]="validatorsEnum.maxDate">{{validatorsEnum.maxDate}}</option>
+                              <option [value]="validatorsEnum.required">{{validatorsEnum.required}}</option>
+                            </ng-container>
+                            <ng-container *ngIf="dType?.get('ElementType')?.value == elementTypeEnum.file">
+                              <option [value]="validatorsEnum.maxSizeFile">{{validatorsEnum.maxSizeFile}}</option>
+                              <option [value]="validatorsEnum.typeFile">{{validatorsEnum.typeFile}}</option>
+                              <option [value]="validatorsEnum.required">{{validatorsEnum.required}}</option>
+                            </ng-container>
+                            <ng-container
+                              *ngIf="fm['Type']?.value !== dataTypeEnum.date && dType?.get('ElementType')?.value !== elementTypeEnum.file">
+                              <option *ngFor="let opt of validators" [value]="opt">{{opt}}</option>
+                            </ng-container>
+
+                          </select>
                           <div class="spacer"
-                            [ngClass]="{'d-none': (getoptionSelected().get(j.toString())?.touched || getoptionSelected().get(j.toString())?.dirty) && (!getoptionSelected().get(j.toString())?.disabled && !getoptionSelected().get(j.toString())?.valid )}">
+                            [ngClass]="{'d-none': (getvalidators().get(v.toString())?.touched || getvalidators().get(v.toString())?.dirty) && !getvalidators().get(v.toString())?.valid && !getvalidators().get(v.toString())?.disabled }">
                           </div>
                           <span class="invalid-feedback">
-                            <em class="d-block" *ngIf="getoptionSelected().get(j.toString())?.hasError('required')">
+                            <em class="d-block" *ngIf="getvalidators().get(v.toString())?.hasError('required')">
                               {{validationForms.required}}
-                            </em>
-                            <em class="d-block" *ngIf="getoptionSelected().get(j.toString())?.hasError('maxlength')">
-                              {{validationForms.maxlength}}
                             </em>
                           </span>
                         </div>
@@ -219,61 +283,37 @@
                     </div>
                   </div>
                 </div>
-
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-between">
-                <span class="form-label">Validators & Values</span>
-                <div class="">
-                  <button type="button" (click)="addValidatorAndValue()" [disabled]="!fm['AvilitarValidators'].value"
-                    class="btn btn-link btn-sm text-decoration-none  text-info">
-                    Add
-                  </button>
-                  <button type="button" (click)="removeValidatorAndValue()"
-                    class="btn btn-link btn-sm  text-decoration-none   text-info ">
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row dinamic-Array">
-              <!-- ********************************* validator****************************** -->
-              <div class="col-md-6">
-                <div>
-                  <div class="">
-                    <div formArrayName="Validators" *ngFor="let os of getvalidators().controls; let v = index">
+                <!-- *********************************value validator****************************** -->
+                <div class="col-md-6">
+                  <div>
+                    <div formArrayName="ValueValidators"
+                      *ngFor="let os of getvalueValidators().controls; let vv = index">
                       <div>
-                        <select class="form-select form-select-sm" aria-label="Default select example"
-                          [formControlName]="v"
-                          [ngClass]="{'is-invalid': (getvalidators().get(v.toString())?.touched || getvalidators().get(v.toString())?.dirty) && !getvalidators().get(v.toString())?.valid  && !getvalidators().get(v.toString())?.disabled}">
-                          <option disabled selected [value]="null">Select Validator</option>
-                          <ng-container *ngIf="fm['Type']?.value == dataTypeEnum.date">
-                            <option [value]="validatorsEnum.minDate">{{validatorsEnum.minDate}}</option>
-                            <option [value]="validatorsEnum.maxDate">{{validatorsEnum.maxDate}}</option>
-                            <option [value]="validatorsEnum.required">{{validatorsEnum.required}}</option>
-                          </ng-container>
-                          <ng-container *ngIf="dType?.get('ElementType')?.value == elementTypeEnum.file">
-                            <option [value]="validatorsEnum.maxSizeFile">{{validatorsEnum.maxSizeFile}}</option>
-                            <option [value]="validatorsEnum.typeFile">{{validatorsEnum.typeFile}}</option>
-                            <option [value]="validatorsEnum.required">{{validatorsEnum.required}}</option>
-                          </ng-container>
-                          <ng-container
-                            *ngIf="fm['Type']?.value !== dataTypeEnum.date && dType?.get('ElementType')?.value !== elementTypeEnum.file">
-                            <option *ngFor="let opt of validators" [value]="opt">{{opt}}</option>
-                          </ng-container>
+                        <input [formControlName]="vv" class="form-control form-control-sm" type="text"
+                          placeholder="Value Validators"
+                          [ngClass]="{'is-invalid': (getvalueValidators().get(vv.toString())?.touched || getvalueValidators().get(vv.toString())?.dirty) && !getvalueValidators().get(vv.toString())?.disabled && !getvalueValidators().get(vv.toString())?.valid}">
 
-                        </select>
                         <div class="spacer"
-                          [ngClass]="{'d-none': (getvalidators().get(v.toString())?.touched || getvalidators().get(v.toString())?.dirty) && !getvalidators().get(v.toString())?.valid && !getvalidators().get(v.toString())?.disabled }">
+                          [ngClass]="{'d-none': (getvalueValidators().get(vv.toString())?.touched || getvalueValidators().get(vv.toString())?.dirty) && !getvalueValidators().get(vv.toString())?.disabled && !getvalueValidators().get(vv.toString())?.valid }">
                         </div>
                         <span class="invalid-feedback">
-                          <em class="d-block" *ngIf="getvalidators().get(v.toString())?.hasError('required')">
+                          <em class="d-block" *ngIf="getvalueValidators().get(vv.toString())?.hasError('required')">
                             {{validationForms.required}}
+                          </em>
+                          <em class="d-block" *ngIf="getvalueValidators().get(vv.toString())?.hasError('maxlength')">
+                            {{validationForms.maxlength}}
+                          </em>
+                          <em class="d-block"
+                            *ngIf="getvalueValidators().get(vv.toString())?.hasError('valuevalidatorminandmaxdate')">
+                            {{validationForms.valuevalidatorminandmaxdate}}
+                          </em>
+                          <em class="d-block"
+                            *ngIf="getvalueValidators().get(vv.toString())?.hasError('valuevalidatormaxsizefile')">
+                            {{validationForms.valuevalidatormaxsizefile}}
+                          </em>
+                          <em class="d-block"
+                            *ngIf="getvalueValidators().get(vv.toString())?.hasError('valuevalidatortypefile')">
+                            {{validationForms.valuevalidatortypefile}}
                           </em>
                         </span>
                       </div>
@@ -281,55 +321,20 @@
                   </div>
                 </div>
               </div>
-              <!-- *********************************value validator****************************** -->
-              <div class="col-md-6">
-                <div>
-                  <div formArrayName="ValueValidators" *ngFor="let os of getvalueValidators().controls; let vv = index">
-                    <div>
-                      <input [formControlName]="vv" class="form-control form-control-sm" type="text"
-                        placeholder="Value Validators"
-                        [ngClass]="{'is-invalid': (getvalueValidators().get(vv.toString())?.touched || getvalueValidators().get(vv.toString())?.dirty) && !getvalueValidators().get(vv.toString())?.disabled && !getvalueValidators().get(vv.toString())?.valid}">
-
-                      <div class="spacer"
-                        [ngClass]="{'d-none': (getvalueValidators().get(vv.toString())?.touched || getvalueValidators().get(vv.toString())?.dirty) && !getvalueValidators().get(vv.toString())?.disabled && !getvalueValidators().get(vv.toString())?.valid }">
-                      </div>
-                      <span class="invalid-feedback">
-                        <em class="d-block" *ngIf="getvalueValidators().get(vv.toString())?.hasError('required')">
-                          {{validationForms.required}}
-                        </em>
-                        <em class="d-block" *ngIf="getvalueValidators().get(vv.toString())?.hasError('maxlength')">
-                          {{validationForms.maxlength}}
-                        </em>
-                        <em class="d-block"
-                          *ngIf="getvalueValidators().get(vv.toString())?.hasError('valuevalidatorminandmaxdate')">
-                          {{validationForms.valuevalidatorminandmaxdate}}
-                        </em>
-                        <em class="d-block"
-                          *ngIf="getvalueValidators().get(vv.toString())?.hasError('valuevalidatormaxsizefile')">
-                          {{validationForms.valuevalidatormaxsizefile}}
-                        </em>
-                        <em class="d-block"
-                          *ngIf="getvalueValidators().get(vv.toString())?.hasError('valuevalidatortypefile')">
-                          {{validationForms.valuevalidatortypefile}}
-                        </em>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card-footer ">
-        <div class="d-flex justify-content-between p-2 py-3">
-          <div class="w-75"></div>
-          <button class="btn btn-secondary btn-sm me-3" style="width:30%;" [routerLink]="['/entities', entityId,'fields']  "
-            type="button">Cancel</button>
-          <button class="btn btn-primary btn-sm " style="width:30%;" type="submit"
-            [disabled]="!fieldForm.valid">Create</button>
+        <div class="card-footer ">
+          <div class="d-flex justify-content-between p-2 py-3">
+            <div class="w-75"></div>
+            <button class="btn btn-secondary btn-sm me-3" style="width:30%;"
+              [routerLink]="['/entities', entityId,'fields']  " type="button">Cancel</button>
+            <button class="btn btn-primary btn-sm " style="width:30%;" type="submit"
+              [disabled]="!fieldForm.valid">Save</button>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
+
 </div>

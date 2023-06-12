@@ -46,7 +46,8 @@
             "allowedCommonJsDependencies": [
               "chart.js",
               "@coreui/chartjs/dist/js/coreui-chartjs.js",
-              "ajv"
+              "ajv",
+              "file-saver"
             ]
           },
           "configurations": {

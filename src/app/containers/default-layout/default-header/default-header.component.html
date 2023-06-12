@@ -164,14 +164,14 @@
         </a>
       </div>
       <div class="d-flex align-items-center">
-        <a role="button" class="text-decoration-none  ms-3 text-info nav-hover" (click)="onActions('new')" data-bs-toggle="modal"
-          data-bs-target="#confirmModal">New</a>
-        <a role="button" (click)="onActions('open')" data-bs-toggle="modal" data-bs-target="#confirmModal"
+        <a role="button" class="text-decoration-none  ms-3 text-info nav-hover" (click)="onActions(actionsModalsConst.new)"
+          data-bs-toggle="modal" data-bs-target="#confirmModal">New</a>
+        <a role="button" (click)="onActions(actionsModalsConst.open)" data-bs-toggle="modal" data-bs-target="#confirmModal"
           class="text-decoration-none  ms-3 text-info nav-hover">Open</a>
 
-        <a role="button" (click)="onActions('close')" data-bs-toggle="modal" data-bs-target="#confirmModal"
+        <a role="button" (click)="onActions(actionsModalsConst.close)" data-bs-toggle="modal" data-bs-target="#confirmModal"
           class="text-decoration-none  ms-3 text-info nav-hover">Close</a>
-        <a role="button" (click)="onActions('export')" data-bs-toggle="modal" data-bs-target="#confirmModal"
+        <a role="button" (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal" data-bs-target="#confirmModal"
           class="text-decoration-none  ms-3 text-info nav-hover">Export Model</a>
       </div>
     </div>

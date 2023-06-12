@@ -12,13 +12,8 @@ import { take } from 'rxjs';
 import { saveAs } from 'file-saver';
 import { schema } from 'src/app/shared/schema';
 import Ajv from 'ajv';
-const actionsModal = {
-  new: 'new',
-  open: 'open',
-  close: 'close',
-  export: 'export',
-  exportFailed: 'exportFailed'
-};
+import {actionsModal} from '../action-modal.const'
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
@@ -31,7 +26,8 @@ export class DefaultLayoutComponent implements OnInit {
   };
   messageModal!: string;
   messageError = '';
-  showModal = false
+  action$ = this.actionMNodal.getAction$
+  actionsModals = actionsModal
 
   constructor(
     private dataStorage: LocalStorageService,
@@ -40,6 +36,7 @@ export class DefaultLayoutComponent implements OnInit {
   ) {}
 
   @ViewChild("upload") upload!: ElementRef
+  @ViewChild("openModal") openModal!: ElementRef
 
   ngOnInit(): void {
     this.actionMNodal.getmessageModal$.subscribe((res) => {
@@ -62,25 +59,23 @@ export class DefaultLayoutComponent implements OnInit {
         try {
           const valid = validate(JSON.parse(reader.result as string));
           if (!valid) {
-            console.error("El modelo no cumple con el schema ", validate.errors)
-            this.messageError = `El modelo no cumple con el schema`;
-            this.showModal = true
+            this.actionMNodal.action = actionsModal.importFailed
+            this.actionMNodal.messageModal = "Error el file  no cumple con el schema "
+            this.openModal.nativeElement.click()
           } else {
-            this.showModal = false
-            this.messageError = '';
             this.dataStorage.addDataStorage(
               JSON.parse(reader.result as string)
             );
             this.router.navigate(['/app/detail']);
           }
         } catch {
-          this.messageError = 'Error en el modelo seleccionado';
-          this.showModal = true
+          this.actionMNodal.action = actionsModal.importFailed
+          this.actionMNodal.messageModal = "Error en el file"
+          this.openModal.nativeElement.click()
         }
       };
     }
     e.target.value = null
-
   }
 
   actions() {
@@ -91,8 +86,6 @@ export class DefaultLayoutComponent implements OnInit {
       }
       if (res == actionsModal.open) {
         this.upload.nativeElement.click()
-        //this.router.navigateByUrl('/initial');
-        //this.dataStorage.removeDataStorage();
       }
       if (res == actionsModal.close) {
         this.router.navigateByUrl('/initial');

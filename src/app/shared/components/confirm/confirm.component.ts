@@ -13,5 +13,6 @@ export class ConfirmComponent {
   @Input() confirmMessage : string = '';
   @Input() id:string = 'confirmModal'
   @Input() modalTitle : string = ''
+  @Input() hideCloseButton : boolean = false
   @Output() action : EventEmitter<boolean> = new EventEmitter<boolean>()
 }

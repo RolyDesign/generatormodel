@@ -1,19 +1,21 @@
 
 <!-- Modal -->
-<div  class="modal fade" id="{{id}}" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div  class="modal-dialog modal-dialog-centered">
-    <div  class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">{{modalTitle}}</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        {{confirmMessage}}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" style="width: 5rem;">Close</button>
-        <button (click)="(action.emit(true))" type="button" data-bs-dismiss="modal" class="btn  btn-sm btn-primary" style="width: 5rem;">Ok</button>
+
+  <div  class="modal fade" id="{{id}}" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div  class="modal-dialog modal-dialog-centered">
+      <div  class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{modalTitle}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{confirmMessage}}
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="!hideCloseButton" type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" style="width: 5rem;">Close</button>
+          <button (click)="(action.emit(true))" type="button" data-bs-dismiss="modal" class="btn  btn-sm btn-primary" style="width: 5rem;">Ok</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+

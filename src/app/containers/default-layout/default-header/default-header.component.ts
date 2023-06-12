@@ -10,13 +10,7 @@ import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.servi
 import Ajv from 'ajv';
 import { schema } from 'src/app/shared/schema';
 import { appModel } from 'src/app/shared/model-interfaces';
-const actionsModal = {
-  new: 'new',
-  open: 'open',
-  close: 'close',
-  export:'export',
-  exportFailed: 'exportFailed'
-};
+import {actionsModal} from '../../action-modal.const'
 
 @Component({
   selector: 'app-default-header',
@@ -46,6 +40,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   onActions(action: string) {
     this.acctionModalService.action = action;
+    this.acctionModalService.idModal = action
     if (action == actionsModal.new) {
       this.acctionModalService.messageModal = this.confirmMessage;
     }
@@ -65,7 +60,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
       try {
         const valid = validate(data);
         if (!valid) {
-          console.error("Para exportar debe tener al menos una entidad creada", validate.errors)
+          //console.error("Para exportar debe tener al menos una entidad creada", validate.errors)
           this.acctionModalService.messageModal = "El modelo no cumple con el schema. Para exportar debe tener al menos una entidad creada";
           this.acctionModalService.action = actionsModal.exportFailed
         } else {
