@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'initial',
     component: InitialComponent,
-    title:'init'
+    title:'Welcome'
   },
   {
     path: 'new-app',

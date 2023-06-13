@@ -16,7 +16,7 @@
           </a>
 
         </div>
-        <ng-container *ngIf="entities.length > 0">
+        <ng-container *ngIf="entities.length > 0; else addEntity">
           <table class="table shadow border table-striped bg-light  ">
             <thead class="bg-secondary">
               <tr>
@@ -62,6 +62,14 @@
     </div>
   </div>
 </ng-container>
+<ng-template #addEntity>
+  <div class="alert alert-primary text-center" role="alert">
+    Comience creando la primera entidad
+    <a class="text-decoration-none fw-bolder ms-3 text-info" style="font-size: 0.9rem;" routerLink="/entities/add">
+      New Entity
+    </a>
+  </div>
+</ng-template>
 <div class="divider"></div>
 
 
