@@ -1,4 +1,3 @@
-<ng-container *ngIf="data | async as data">
 <ng-container *ngIf="fields | async as fields">
   <div class="container">
     <div>
@@ -80,7 +79,6 @@
       </div>
     </div>
   </div>
-</ng-container>
 </ng-container>
 <div class="divider"></div>
  <confirm (action)="deletefield()" [id]="'confirmModalDelete'" [confirmMessage]="'Va a eliminar el campo: '+fieldName+ '. Desea Continuar'" modalTitle="Alert!!!"></confirm>

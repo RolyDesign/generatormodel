@@ -19,7 +19,7 @@ const actionsModal = {
   styleUrls: ['./list-fields.component.scss']
 })
 export class ListFieldsComponent  {
-  data = this.appService.getAll();
+  //data = this.appService.getAll();
   fields!: Observable<IFields[]>
   icon = {
     edit: faEdit,
@@ -37,7 +37,6 @@ export class ListFieldsComponent  {
 
   constructor(
     private route: ActivatedRoute,
-    private appService: AppService,
     private fieldService: FieldService,
     private entityService: EntityService
   ) {}
