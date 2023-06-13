@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { IEntity } from '../shared/model-interfaces';
 import Ajv from 'ajv';
-import {schema} from '../shared/schema';
+import {APP_SCHEMA} from '../shared/schema';
 import {FileStorageServiceService}from '../shared/file-storage-service.service'
 
 @Component({
@@ -33,7 +33,7 @@ export class ReadmodelsComponent implements OnInit {
     reader.onload = () => {
         var ajv = new Ajv();
         ajv.addKeyword("dependentRequired")
-        const sch = schema
+        const sch = APP_SCHEMA
         const validate = ajv.compile(sch);
         try{
           const valid = validate(JSON.parse(reader.result as string));

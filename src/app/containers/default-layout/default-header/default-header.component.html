@@ -171,8 +171,15 @@
 
         <a role="button" (click)="onActions(actionsModalsConst.close)" data-bs-toggle="modal" data-bs-target="#confirmModal"
           class="text-decoration-none  ms-3 text-info nav-hover">Close</a>
-        <a role="button" (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal" data-bs-target="#confirmModal"
-          class="text-decoration-none  ms-3 text-info nav-hover">Export Model</a>
+        <!-- <a role="button" (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal" data-bs-target="#confirmModal"
+          class="text-decoration-none  ms-3 text-info nav-hover">Export Model</a> -->
+          <button type="button"
+          (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal" data-bs-target="#confirmModal"
+          [disabled]="!(checkExport$ | async)"
+          class="btn btn-link btn-sm text-decoration-none  text-info nav-hover">
+          Export Model
+
+        </button>
       </div>
     </div>
   </div>

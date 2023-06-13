@@ -10,9 +10,10 @@ import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.servi
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { saveAs } from 'file-saver';
-import { schema } from 'src/app/shared/schema';
+import { APP_SCHEMA } from 'src/app/shared/schema';
 import Ajv from 'ajv';
 import {actionsModal} from '../action-modal.const'
+import { MESSAGE } from 'src/app/shared/message.modal';
 
 @Component({
   selector: 'app-dashboard',
@@ -47,6 +48,9 @@ export class DefaultLayoutComponent implements OnInit {
     const myfile = e.target.files[0];
     if(myfile){
       if (myfile.type && !myfile.type.includes('evaproj')) {
+        this.actionMNodal.action = actionsModal.importFailed
+        this.actionMNodal.messageModal =  MESSAGE.FORMAT_INCORRECT
+        this.openModal.nativeElement.click()
         return;
       }
       const reader = new FileReader();
@@ -54,13 +58,13 @@ export class DefaultLayoutComponent implements OnInit {
       reader.onload = () => {
         var ajv = new Ajv();
         ajv.addKeyword('dependentRequired');
-        const sch = schema;
+        const sch = APP_SCHEMA;
         const validate = ajv.compile(sch);
         try {
           const valid = validate(JSON.parse(reader.result as string));
           if (!valid) {
             this.actionMNodal.action = actionsModal.importFailed
-            this.actionMNodal.messageModal = "Error el file  no cumple con el schema "
+            this.actionMNodal.messageModal = MESSAGE.SCHEMA_IMPORT_ICORRECT
             this.openModal.nativeElement.click()
           } else {
             this.dataStorage.addDataStorage(
@@ -70,7 +74,7 @@ export class DefaultLayoutComponent implements OnInit {
           }
         } catch {
           this.actionMNodal.action = actionsModal.importFailed
-          this.actionMNodal.messageModal = "Error en el file"
+          this.actionMNodal.messageModal = MESSAGE.ERROR_FILE
           this.openModal.nativeElement.click()
         }
       };

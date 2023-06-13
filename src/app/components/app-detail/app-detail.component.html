@@ -1,18 +1,22 @@
-<ng-container *ngIf="data | async as data">
+<ng-container *ngIf="data | async as entities">
   <div class="container">
     <div>
       <div class="bg-light mt-4 ">
         <div class="d-flex justify-content-start align-items-center">
           <h4 class="position-relative">Entities
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size: 0.6rem;">
-              {{data.Entities.length}}
+              {{entities.length}}
             </span>
           </h4>
           <a class="text-decoration-none fw-bolder ms-3 text-info" style="font-size: 0.9rem;" routerLink="/entities/add">
             New Entity
           </a>
+          <a role="button" class="text-decoration-none fw-bolder ms-3 text-info" style="font-size: 0.9rem;" (click)="importEntity()">
+           Import
+          </a>
+
         </div>
-        <ng-container *ngIf="data.Entities.length > 0">
+        <ng-container *ngIf="entities.length > 0">
           <table class="table shadow border table-striped bg-light  ">
             <thead class="bg-secondary">
               <tr>
@@ -31,7 +35,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let entity of data.Entities">
+              <tr *ngFor="let entity of entities">
                 <td>
                   {{entity.Name}}
                 </td>
@@ -43,9 +47,11 @@
                 </td>
                 <td class="text-end">
                   <span role="button" class="text-info  me-4" [routerLink]="['/entities', entity.Id, 'edit']">Edit</span>
-                  <span data-bs-toggle="modal" data-bs-target="#confirmModalDelete"  (click)="onActions('delete',entity.Id, entity.Name)" role="button" class="text-info  me-4">Delete</span>
+                  <span data-bs-toggle="modal" data-bs-target="#confirmModalEntity"  (click)="onActions('delete',entity.Id, entity.Name)" role="button" class="text-info  me-4">Delete</span>
                   <!-- <span role="button" class=" text-info  me-4" [routerLink]="['/entities', entity.Id, 'fields', 'add']">Add Field </span> -->
-                  <span role="button" class=" text-info " [routerLink]="['/entities', entity.Id, 'fields']">Fields</span>
+                  <span role="button" class=" text-info  me-4" [routerLink]="['/entities', entity.Id, 'fields']">Fields</span>
+
+                  <span data-bs-toggle="modal" data-bs-target="#confirmModalEntity"  (click)="onActions('export',entity.Id, entity.Name)" role="button" class=" text-info ">Export</span>
                 </td>
               </tr>
 
@@ -59,5 +65,8 @@
 <div class="divider"></div>
 
 
- <confirm (action)="deleteEntity()" [id]="'confirmModalDelete'" [confirmMessage]="'Va a eliminar la entidad: '+entityName+ '. Desea Continuar'" modalTitle="Alert!!!"></confirm>
+ <confirm (action)="actions()" [id]="'confirmModalEntity'" [confirmMessage]="confirmMessage" modalTitle="Alert!!!" [hideCloseButton]="actionsModal == actionsConst.importFailed || actionsModal == actionsConst.exportFailed"></confirm>
+<!-- hide input para controlar el upload -->
+<input accept=".evaproj" (change)="catchFile($event,'file')" class="d-none" #upload type="file">
 
+<button class="d-none" role="button" #openModal data-bs-toggle="modal" data-bs-target="#confirmModalEntity"></button>

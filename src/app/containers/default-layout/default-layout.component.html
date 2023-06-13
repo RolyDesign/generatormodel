@@ -54,6 +54,6 @@
 <!-- hide input para controlar el upload -->
 <input accept=".evaproj" (change)="catchFile($event,'file')" class="d-none" #upload type="file">
 <!-- hide button para controlar el openModal -->
-<button role="button" #openModal data-bs-toggle="modal" data-bs-target="#confirmModal"
+<button class="d-none" role="button" #openModal data-bs-toggle="modal" data-bs-target="#confirmModal"
 class="d-none">Export Model</button>
 <confirm (action)="actions()" [hideCloseButton]="(action$ | async) == actionsModals.exportFailed || (action$ | async) == actionsModals.importFailed" [confirmMessage]="messageModal " modalTitle="Alert!!!"></confirm>

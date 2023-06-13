@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,34 +8,41 @@ import { AppService } from 'src/app/shared/app.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.service';
 import Ajv from 'ajv';
-import { schema } from 'src/app/shared/schema';
+import { APP_SCHEMA } from 'src/app/shared/schema';
 import { appModel } from 'src/app/shared/model-interfaces';
 import {actionsModal} from '../../action-modal.const'
+import { MESSAGE } from 'src/app/shared/message.modal';
+import{ValidatorSchemaService} from '../../../shared/validatorschema.service'
 
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
   styleUrls:['./default-header.component.scss'],
 })
-export class DefaultHeaderComponent extends HeaderComponent {
+export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   data = this.appService.getAll();
   icon = {
     edit: faEdit,
     download: faDownload,
   };
   @Input() sidebarId: string = 'sidebar';
-  confirmMessage = `Esta accion eliminara los datos almacenados en el local storage.Asegurece de haber descargado el proyecto. Desea continuar.`;
+  confirmMessage = MESSAGE.CLEAN_LOCALSTORAGE;
   actionsModal!: string;
   actionsModalsConst = actionsModal;
+  checkExport$ = this.validatorAppSchema.getValidatorSchema
 
 
   constructor(
     private appService: AppService,
     private dataStorage: LocalStorageService,
     private router: Router,
-    private acctionModalService: ActionModalHeaerService
+    private acctionModalService: ActionModalHeaerService,
+    private validatorAppSchema: ValidatorSchemaService
   ) {
     super();
+  }
+  ngOnInit(): void {
+
   }
 
   onActions(action: string) {
@@ -55,19 +62,19 @@ export class DefaultHeaderComponent extends HeaderComponent {
       const data = this.dataStorage.getLocalStotage() as appModel
       let ajv = new Ajv();
       ajv.addKeyword('dependentRequired');
-      const sch = schema;
+      const sch = APP_SCHEMA;
       const validate = ajv.compile(sch);
       try {
         const valid = validate(data);
         if (!valid) {
-          //console.error("Para exportar debe tener al menos una entidad creada", validate.errors)
-          this.acctionModalService.messageModal = "El modelo no cumple con el schema. Para exportar debe tener al menos una entidad creada";
+          this.acctionModalService.messageModal = MESSAGE.SCHEMA_EXPORT_ICORRECT
           this.acctionModalService.action = actionsModal.exportFailed
         } else {
-          this.acctionModalService.messageModal = "El arvhivo se guardara en el directorio download de su pc";
+          this.acctionModalService.messageModal = MESSAGE.EXPORT_APP_SUCCESS + data.Name
         }
       } catch (e) {
-        console.error(e)
+        this.acctionModalService.messageModal = MESSAGE.ERROR_FILE
+        this.acctionModalService.action = actionsModal.exportFailed
       }
     }
   }
@@ -76,11 +83,4 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.router.navigate(['/edit-app']);
   }
 
-  // public newMessages = new Array(4)
-  // public newTasks = new Array(5)
-  // public newNotifications = new Array(5)
-
-  // constructor(private classToggler: ClassToggleService) {
-  //   super();
-  // }
 }
