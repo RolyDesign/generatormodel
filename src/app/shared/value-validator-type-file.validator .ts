@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { ValuesValidatorsDynamic } from '../generator-model/meta-data';
+import { ValuesValidatorsDynamic } from '../shared/meta-data';
 
 export function valueValidatorTypeFile(
   control: AbstractControl

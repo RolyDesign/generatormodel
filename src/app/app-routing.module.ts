@@ -6,13 +6,9 @@ import { Page404Component } from './views/pages/page404/page404.component';
 import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
-import { GeneratorModelComponent } from './generator-model/generator-model.component';
 import { GuideComponent } from './guide/guide.component';
-import { ReadmodelsComponent } from './readmodels/readmodels.component';
-import { ModelEditComponent } from './model-edit/model-edit.component';
 import { InitialComponent } from './components/initial/initial.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
-
 import { EditAppComponent } from './components/editapp/editapp.component';
 import { CreateEntityComponent } from './components/create-entity/create-entity.component';
 import { EditEntityComponent } from './components/edit-entity/edit-entity.component';

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { IEntity, IFields, appModel } from './model-interfaces';
 import { Observable, of, switchMap } from 'rxjs';
-import { DataTypes } from '../generator-model/meta-data';
+
 import { Router } from '@angular/router';
 import Ajv from 'ajv';
 import { ENTITY_SCHEMA } from './schema';
 import * as saveAs from 'file-saver';
+import { DataTypes } from './meta-data';
 
 @Injectable({
   providedIn: 'root',

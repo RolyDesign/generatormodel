@@ -16,11 +16,10 @@ const actionsModal = {
 @Component({
   selector: 'app-list-fields',
   templateUrl: './list-fields.component.html',
-  styleUrls: ['./list-fields.component.scss']
+  styleUrls: ['./list-fields.component.scss'],
 })
-export class ListFieldsComponent  {
-  //data = this.appService.getAll();
-  fields!: Observable<IFields[]>
+export class ListFieldsComponent {
+  fields!: Observable<IFields[]>;
   icon = {
     edit: faEdit,
     download: faDownload,
@@ -30,10 +29,8 @@ export class ListFieldsComponent  {
   confirmMessage = `Esta accion eliminara los datos almacenados en el local storage.Asegurece de haber descargado el proyecto. Desea continuar.`;
   actionsModal!: string;
   actionsModalsConst = actionsModal;
-  fieldId!:number
+  fieldId!: number;
   fieldName!: string;
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -41,26 +38,23 @@ export class ListFieldsComponent  {
     private entityService: EntityService
   ) {}
 
-
   ngOnInit(): void {
-    this.entityId = Number(this.route.snapshot.paramMap.get('id'))
-    this.entityService.getById(this.entityId).pipe(
-      take(1)
-    ).subscribe(res=>{
-      this.entityName = res.Name
-    })
-    this.fields = this.fieldService.getAll(this.entityId)
+    this.entityId = Number(this.route.snapshot.paramMap.get('id'));
+    this.entityService
+      .getById(this.entityId)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.entityName = res.Name;
+      });
+    this.fields = this.fieldService.getAll(this.entityId);
   }
 
-  saveIdAndName(fieldId: number, name: string){
-    this.fieldId = fieldId
-    this.fieldName = name
+  saveIdAndName(fieldId: number, name: string) {
+    this.fieldId = fieldId;
+    this.fieldName = name;
   }
 
   deletefield() {
-   this.fieldService.deleteField(this.entityId,this.fieldId)
+    this.fieldService.deleteField(this.entityId, this.fieldId);
   }
-
-
-
 }

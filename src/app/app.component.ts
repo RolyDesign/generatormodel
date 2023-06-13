@@ -5,7 +5,7 @@ import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
 import { LocalStorageService } from './shared/local-storage.service';
-import { FileStorageServiceService } from './shared/file-storage-service.service';
+
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
     private titleService: Title,
     private iconSetService: IconSetService,
     private dataStorage: LocalStorageService,
-    private fileStorage: FileStorageServiceService
   ) {
     titleService.setTitle(this.title);
     // iconSet singleton

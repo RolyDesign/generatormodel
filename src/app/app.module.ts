@@ -45,15 +45,11 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { GeneratorModelComponent } from './generator-model/generator-model.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GuideComponent } from './guide/guide.component';
-import { ReadmodelsComponent } from './readmodels/readmodels.component';
-import { ModelEditComponent } from './model-edit/model-edit.component';
 import { InitialComponent } from './components/initial/initial.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
 import { NewProjectComponent } from './components/new-project/new-project.component';
-
 import { CreateEntityComponent } from './components/create-entity/create-entity.component';
 import{ConfirmComponent}from './shared/components/confirm/confirm.component';
 import { EditEntityComponent } from './components/edit-entity/edit-entity.component';
@@ -75,7 +71,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, GeneratorModelComponent, GuideComponent, ReadmodelsComponent, ModelEditComponent, InitialComponent, AppDetailComponent, NewProjectComponent, EditAppComponent, CreateEntityComponent, EditEntityComponent, AddFieldComponent, ListFieldsComponent, EditFieldComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, GuideComponent, InitialComponent, AppDetailComponent, NewProjectComponent, EditAppComponent, CreateEntityComponent, EditEntityComponent, AddFieldComponent, ListFieldsComponent, EditFieldComponent],
   imports: [
     ConfirmComponent,
     BrowserModule,

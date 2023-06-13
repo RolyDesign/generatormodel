@@ -2,9 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 //import { navItems } from './_nav';
 import { INavData } from '@coreui/angular';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FileStorageServiceService } from 'src/app/shared/file-storage-service.service';
-import { IEntity, IFields, appModel } from '../../shared/model-interfaces';
+import { appModel } from '../../shared/model-interfaces';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.service';
 import { Router } from '@angular/router';
@@ -12,7 +10,7 @@ import { take } from 'rxjs';
 import { saveAs } from 'file-saver';
 import { APP_SCHEMA } from 'src/app/shared/schema';
 import Ajv from 'ajv';
-import {actionsModal} from '../action-modal.const'
+import { actionsModal } from '../action-modal.const';
 import { MESSAGE } from 'src/app/shared/message.modal';
 
 @Component({
@@ -27,8 +25,8 @@ export class DefaultLayoutComponent implements OnInit {
   };
   messageModal!: string;
   messageError = '';
-  action$ = this.actionMNodal.getAction$
-  actionsModals = actionsModal
+  action$ = this.actionMNodal.getAction$;
+  actionsModals = actionsModal;
 
   constructor(
     private dataStorage: LocalStorageService,
@@ -36,8 +34,8 @@ export class DefaultLayoutComponent implements OnInit {
     private router: Router
   ) {}
 
-  @ViewChild("upload") upload!: ElementRef
-  @ViewChild("openModal") openModal!: ElementRef
+  @ViewChild('upload') upload!: ElementRef;
+  @ViewChild('openModal') openModal!: ElementRef;
 
   ngOnInit(): void {
     this.actionMNodal.getmessageModal$.subscribe((res) => {
@@ -46,11 +44,11 @@ export class DefaultLayoutComponent implements OnInit {
   }
   catchFile(e: any, file: string) {
     const myfile = e.target.files[0];
-    if(myfile){
+    if (myfile) {
       if (myfile.type && !myfile.type.includes('evaproj')) {
-        this.actionMNodal.action = actionsModal.importFailed
-        this.actionMNodal.messageModal =  MESSAGE.FORMAT_INCORRECT
-        this.openModal.nativeElement.click()
+        this.actionMNodal.action = actionsModal.importFailed;
+        this.actionMNodal.messageModal = MESSAGE.FORMAT_INCORRECT;
+        this.openModal.nativeElement.click();
         return;
       }
       const reader = new FileReader();
@@ -63,9 +61,9 @@ export class DefaultLayoutComponent implements OnInit {
         try {
           const valid = validate(JSON.parse(reader.result as string));
           if (!valid) {
-            this.actionMNodal.action = actionsModal.importFailed
-            this.actionMNodal.messageModal = MESSAGE.SCHEMA_IMPORT_ICORRECT
-            this.openModal.nativeElement.click()
+            this.actionMNodal.action = actionsModal.importFailed;
+            this.actionMNodal.messageModal = MESSAGE.SCHEMA_IMPORT_ICORRECT;
+            this.openModal.nativeElement.click();
           } else {
             this.dataStorage.addDataStorage(
               JSON.parse(reader.result as string)
@@ -73,13 +71,13 @@ export class DefaultLayoutComponent implements OnInit {
             this.router.navigate(['/app/detail']);
           }
         } catch {
-          this.actionMNodal.action = actionsModal.importFailed
-          this.actionMNodal.messageModal = MESSAGE.ERROR_FILE
-          this.openModal.nativeElement.click()
+          this.actionMNodal.action = actionsModal.importFailed;
+          this.actionMNodal.messageModal = MESSAGE.ERROR_FILE;
+          this.openModal.nativeElement.click();
         }
       };
     }
-    e.target.value = null
+    e.target.value = null;
   }
 
   actions() {
@@ -89,14 +87,14 @@ export class DefaultLayoutComponent implements OnInit {
         this.dataStorage.removeDataStorage();
       }
       if (res == actionsModal.open) {
-        this.upload.nativeElement.click()
+        this.upload.nativeElement.click();
       }
       if (res == actionsModal.close) {
         this.router.navigateByUrl('/initial');
         this.dataStorage.removeDataStorage();
       }
       if (res == actionsModal.export) {
-        const data = this.dataStorage.getLocalStotage() as appModel
+        const data = this.dataStorage.getLocalStotage() as appModel;
         const file = new File([JSON.stringify(data)], data.Name + '.evaproj', {
           type: 'text/plain;charset=utf-8',
         });

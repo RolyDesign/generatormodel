@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  VALIDATION_FORMS,
-  helpeMessage,
-} from '../../generator-model/message-validation.const';
-import {
   FormArray,
   FormBuilder,
   FormControl,
@@ -14,18 +10,12 @@ import { IEntity, IFields, appModel } from '../../shared/model-interfaces';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from '../../shared/local-storage.service';
-import {
-  DataTypes,
-  ElementType,
-  Elements,
-  TypeFile,
-  ValidatorsEnum,
-  ValuesValidatorsDynamic,
-} from '../../generator-model/meta-data';
+
 import { valueValidatorMinAndMaxDate } from '../../shared/value-validator-min-and-max-date.validator';
 import { valueValidatorMaxSizeFile } from '../../shared/value-validator-max-size-file.validator';
 import { valueValidatorTypeFile } from '../../shared/value-validator-type-file.validator ';
 import { FieldService } from '../../shared/field.service';
+import { DataTypes, ElementType, Elements, TypeFile, VALIDATION_FORMS, ValidatorsEnum, ValuesValidatorsDynamic, helpeMessage } from 'src/app/shared/meta-data';
 
 @Component({
   selector: 'app-add-field',
@@ -50,7 +40,7 @@ export class AddFieldComponent {
     // DataTypes.arrayNumber,
     // DataTypes.arrayString,
     DataTypes.anyArray,
-    DataTypes.boleanArray,
+    DataTypes.booleanArray,
     DataTypes.numberArray,
     DataTypes.stringArray,
   ];

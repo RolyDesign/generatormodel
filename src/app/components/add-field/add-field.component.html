@@ -98,7 +98,7 @@
                     || fm['Type'].value == dataTypeEnum.stringArray
                     || fm['Type'].value == dataTypeEnum.numberArray
                     || fm['Type'].value == dataTypeEnum.anyArray
-                    || fm['Type'].value == dataTypeEnum.boleanArray">
+                    || fm['Type'].value == dataTypeEnum.booleanArray">
                           <option [value]="elementsEnum.select">{{elementsEnum.select}}</option>
                         </ng-container>
                         <ng-container *ngIf="fm['Type'].value !== dataTypeEnum.boolean
@@ -107,7 +107,7 @@
                     && fm['Type'].value !== dataTypeEnum.stringArray
                     && fm['Type'].value !== dataTypeEnum.numberArray
                     && fm['Type'].value !== dataTypeEnum.anyArray
-                    && fm['Type'].value !== dataTypeEnum.boleanArray ">
+                    && fm['Type'].value !== dataTypeEnum.booleanArray ">
                           <option *ngFor="let opt of element" [value]="opt">{{opt}}</option>
                         </ng-container>
 

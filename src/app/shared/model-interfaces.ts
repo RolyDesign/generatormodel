@@ -1,4 +1,4 @@
-import {DataTypes, ElementType, Elements, TypeFile, ValidatorsEnum} from "../generator-model/meta-data"
+import {DataTypes, ElementType, Elements, TypeFile, ValidatorsEnum} from "../shared/meta-data"
 
 export interface appModel {
 

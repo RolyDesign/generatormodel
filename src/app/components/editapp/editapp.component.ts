@@ -2,11 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import {
-  VALIDATION_FORMS,
-  helpeMessage,
-} from 'src/app/generator-model/message-validation.const';
+
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { VALIDATION_FORMS, helpeMessage } from 'src/app/shared/meta-data';
 import { appModel } from 'src/app/shared/model-interfaces';
 
 @Component({

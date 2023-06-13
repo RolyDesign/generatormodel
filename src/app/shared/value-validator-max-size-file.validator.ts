@@ -1,5 +1,4 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { ValuesValidatorsDynamic } from '../generator-model/meta-data';
 
 export function valueValidatorMaxSizeFile(
   control: AbstractControl

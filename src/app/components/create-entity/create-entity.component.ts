@@ -1,14 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  VALIDATION_FORMS,
-  helpeMessage,
-} from '../../generator-model/message-validation.const';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../shared/local-storage.service';
 import { Subscription } from 'rxjs';
 import { IEntity, appModel } from '../../shared/model-interfaces';
 import {EntityService} from '../../shared/entity.service'
+import { VALIDATION_FORMS, helpeMessage } from 'src/app/shared/meta-data';
 
 @Component({
   selector: 'app-create-entity',

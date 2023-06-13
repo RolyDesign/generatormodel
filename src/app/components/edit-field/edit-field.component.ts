@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
-import { VALIDATION_FORMS, helpeMessage } from 'src/app/generator-model/message-validation.const';
-import { DataTypes, ElementType, Elements, TypeFile, ValidatorsEnum, ValuesValidatorsDynamic } from 'src/app/generator-model/meta-data';
+
 import { FieldService } from 'src/app/shared/field.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { DataTypes, ElementType, Elements, TypeFile, VALIDATION_FORMS, ValidatorsEnum, ValuesValidatorsDynamic, helpeMessage } from 'src/app/shared/meta-data';
 import { IEntity, IFields, appModel } from 'src/app/shared/model-interfaces';
 import { valueValidatorMaxSizeFile } from 'src/app/shared/value-validator-max-size-file.validator';
 import { valueValidatorMinAndMaxDate } from 'src/app/shared/value-validator-min-and-max-date.validator';
@@ -34,7 +34,7 @@ export class EditFieldComponent {
     // DataTypes.arrayNumber,
     // DataTypes.arrayString,
     DataTypes.anyArray,
-    DataTypes.boleanArray,
+    DataTypes.booleanArray,
     DataTypes.numberArray,
     DataTypes.stringArray,
   ];

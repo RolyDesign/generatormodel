@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { VALIDATION_FORMS, helpeMessage } from 'src/app/generator-model/message-validation.const';
+
 import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
+import { VALIDATION_FORMS, helpeMessage } from 'src/app/shared/meta-data';
 import { appModel } from 'src/app/shared/model-interfaces';
 
 @Component({
@@ -25,8 +26,6 @@ export class NewProjectComponent implements OnInit {
       Name:['',[Validators.required]]
     })
   }
-
-
 
   createApp(){
     this.data = {
