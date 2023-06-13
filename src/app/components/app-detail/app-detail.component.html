@@ -17,8 +17,9 @@
 
         </div>
         <ng-container *ngIf="entities.length > 0; else addEntity">
-          <table class="table shadow border table-striped bg-light  ">
-            <thead class="bg-secondary">
+         <div class="scroll-table shadow">
+          <table class="table  border table-striped bg-light ">
+            <thead class="bg-secondary"  style="position: sticky; top: -0.01rem;">
               <tr>
                 <th>
                   Entity Name
@@ -34,7 +35,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="tbody">
               <tr *ngFor="let entity of entities">
                 <td>
                   {{entity.Name}}
@@ -57,6 +58,7 @@
 
             </tbody>
           </table>
+         </div>
         </ng-container>
       </div>
     </div>

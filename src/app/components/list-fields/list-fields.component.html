@@ -19,8 +19,9 @@
         </div>
       </div>
         <ng-container *ngIf="fields.length > 0">
-          <table class="table table-striped shadow">
-            <thead class="bg-secondary " style="position: sticky; top: 5rem;">
+        <div class="scroll-table shadow">
+          <table class="table table-striped ">
+            <thead class="bg-secondary " style="position: sticky; top: -0.01rem;">
               <tr>
                 <th>Name</th>
                 <th>Display Name</th>
@@ -74,6 +75,7 @@
               </tr>
             </tbody>
           </table>
+        </div>
         </ng-container>
       </div>
     </div>

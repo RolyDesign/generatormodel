@@ -1,2 +1,6 @@
 // Here you can add other styles
 
+.scroll-table{
+  max-height: calc(100vh - 10rem);
+  overflow-y: auto !important;
+  }

@@ -264,7 +264,7 @@ export class AddFieldComponent {
         }
 
         if (res == this.validatorsEnum.maxSizeFile) {
-          this.getvalueValidators().get(`${ind}`)?.setValue(null);
+         // this.getvalueValidators().get(`${ind}`)?.setValue(null);
           this.getvalueValidators()
             .get(`${ind}`)
             ?.addValidators(valueValidatorMaxSizeFile);
