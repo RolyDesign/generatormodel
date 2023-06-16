@@ -16,6 +16,7 @@ import { AddFieldComponent } from './components/add-field/add-field.component';
 import { ListFieldsComponent } from './components/list-fields/list-fields.component';
 import { NewProjectComponent } from './components/new-project/new-project.component';
 import { EditFieldComponent } from './components/edit-field/edit-field.component';
+import { BuilderCommandComponent } from './components/builder-command/builder-command.component';
 
 
 
@@ -75,6 +76,12 @@ const routes: Routes = [
         component: EditFieldComponent,
         title:'Edit Fields'
       },
+      {
+        path: 'builder-command',
+        component: BuilderCommandComponent,
+        title:'Builder Command'
+      },
+
       // {
       //   path: 'models',
       //   component: ReadmodelsComponent,

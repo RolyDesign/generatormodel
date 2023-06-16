@@ -164,22 +164,28 @@
         </a>
       </div>
       <div class="d-flex align-items-center">
-        <a role="button" class="text-decoration-none  ms-3 text-info nav-hover" (click)="onActions(actionsModalsConst.new)"
-          data-bs-toggle="modal" data-bs-target="#confirmModal">New</a>
-        <a role="button" (click)="onActions(actionsModalsConst.open)" data-bs-toggle="modal" data-bs-target="#confirmModal"
-          class="text-decoration-none  ms-3 text-info nav-hover">Open</a>
+        <a role="button" class="text-decoration-none  ms-3 text-info nav-hover"
+          (click)="onActions(actionsModalsConst.new)" data-bs-toggle="modal" data-bs-target="#confirmModal">New</a>
+        <a role="button" (click)="onActions(actionsModalsConst.open)" data-bs-toggle="modal"
+          data-bs-target="#confirmModal" class="text-decoration-none  ms-3 text-info nav-hover">Open</a>
 
-        <a role="button" (click)="onActions(actionsModalsConst.close)" data-bs-toggle="modal" data-bs-target="#confirmModal"
-          class="text-decoration-none  ms-3 text-info nav-hover">Close</a>
-        <!-- <a role="button" (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal" data-bs-target="#confirmModal"
-          class="text-decoration-none  ms-3 text-info nav-hover">Export Model</a> -->
-          <button type="button"
-          (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal" data-bs-target="#confirmModal"
-          [disabled]="!(checkExport$ | async)"
-          class="btn btn-link btn-sm text-decoration-none  text-info nav-hover">
+        <a role="button" (click)="onActions(actionsModalsConst.close)" data-bs-toggle="modal"
+          data-bs-target="#confirmModal" class="text-decoration-none  ms-3 text-info nav-hover">Close</a>
+        <button type="button" (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal"
+          data-bs-target="#confirmModal" [disabled]="!(checkExport$ | async)"
+          class="btn btn-link btn-sm  ms-3 text-decoration-none  text-info nav-hover">
           Export Model
-
         </button>
+        <div class="dropdown-center">
+          <a class=" dropdown-toggle text-decoration-none text-info nav-hover" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Tools
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/builder-command']">Builder Command</a></li>
+           <li><a class="dropdown-item" [routerLink]="['/guide']">Guide</a></li>
+            <!-- <li><a class="dropdown-item" href="#">Action three</a></li>  -->
+          </ul>
+        </div>
       </div>
     </div>
   </div>

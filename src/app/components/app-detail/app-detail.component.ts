@@ -117,6 +117,7 @@ export class AppDetailComponent implements OnInit {
              this.openModal.nativeElement.click()
            } else {
             this.entityService.addEntity(JSON.parse(reader.result as string))
+            this.validatorAppSchema.validatorSchema = this.validatorAppSchema.validateAppSchema()
            }
         } catch {
           this.actionsModal = 'importFailed'

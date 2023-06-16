@@ -1,0 +1,438 @@
+<div class="container">
+  <div class="py-4">
+    <h4 class="mb-4">Builder Command</h4>
+    <form class="row" [formGroup]="builderCommand" (ngSubmit)="copy()">
+      <div class="col-md-6">
+        <div formGroupName="builderModeGroup">
+          <!-- app with evaproj -->
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="builderMode" formControlName="builderMode"
+              value="app-with-evaproj" id="app-with-evaproj">
+            <label class="form-check-label" for="app-with-evaproj">
+              Crear app usando un app Template y un file.evaproj.
+            </label>
+          </div>
+
+          <!-- app with template and dir entities -->
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="builderMode" formControlName="builderMode"
+              value="app-with-template-and-dir-entities" id="app-with-template-and-dir-entities">
+            <label class="form-check-label" for="app-with-template-and-dir-entities">
+              Crear app usando un app template y un directorio de entidades.
+            </label>
+          </div>
+
+          <!-- app with only template  -->
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="builderMode" formControlName="builderMode"
+              value="app-with-only-template" id="app-with-only-template">
+            <label class="form-check-label" for="app-with-only-template">
+              Crear app usando solo un app template.
+            </label>
+          </div>
+
+          <!-- Crud with dir entities  -->
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="builderMode" formControlName="builderMode"
+              value="crud-with-dir-entities" id="crud-with-dir-entities">
+            <label class="form-check-label" for="crud-with-dir-entities">
+              Crear CRUD con un directorio de entidades.
+            </label>
+          </div>
+
+          <!-- Crud with one entities  -->
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="builderMode" formControlName="builderMode"
+              value="crud-with-one-file-entity" id="crud-with-one-file-entity">
+            <label class="form-check-label" for="crud-with-one-file-entity">
+              Crear CRUD con un file de entidad.
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- if app-with-evaproj -->
+        <div *ngIf="bModeG?.get('builderMode')?.value == 'app-with-evaproj'">
+          <!-- select app template -->
+          <div>
+            <label class="form-label">App Templates</label>
+            <select id="'app-templates" class="form-select form-select-sm" aria-label="Default select example"
+              formControlName="appTemplates"
+              [ngClass]="{'is-invalid': (fm['appTemplates'].touched || fm['appTemplates'].dirty) && !fm['appTemplates'].valid }">
+
+              <option *ngFor="let opt of templateOptions" [value]="opt">{{opt}}</option>
+            </select>
+            <div class="spacer"
+              [ngClass]="{'d-none': (fm['appTemplates'].touched || fm['appTemplates'].dirty) && !fm['appTemplates'].valid }">
+            </div>
+            <span class="invalid-feedback">
+              <em class="d-block" *ngIf="fm['appTemplates']?.hasError('required')">
+                {{validationForms.required}}
+              </em>
+            </span>
+          </div>
+          <!-- Path evaproj -->
+          <div>
+            <label for="pathFileEvaProj" class=" form-label">Path of File.evaproj</label>
+            <div>
+              <input id="pathFileEvaProj" formControlName="pathFileEvaProj" class="form-control form-control-sm "
+                type="text" placeholder="Path of File.evaproj" autocomplete="off"
+                [ngClass]="{'is-invalid': (fm['pathFileEvaProj'].touched || fm['pathFileEvaProj'].dirty) && !fm['pathFileEvaProj'].valid}">
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['pathFileEvaProj'].touched || fm['pathFileEvaProj'].dirty) && !fm['pathFileEvaProj'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['pathFileEvaProj']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- Entities config -->
+          <div>
+            <!-- is in memory  -->
+            <div class="form-check ">
+              <input class="form-check-input" type="checkbox" value="" formControlName="isInMemory" id="isInMemory">
+              <label class="form-check-label" for="isInMemory">
+                Servicio de almacenamiento de datos en memoria
+              </label>
+            </div>
+
+            <div formGroupName="configEntities">
+              <!-- simple Component -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="simple" formControlName="isModuleOrStandalone"
+                  id="simple">
+                <label class="form-check-label" for="simple">
+                  Cada componente del CRUD sera un Componente simple.
+                </label>
+              </div>
+
+              <!-- is module  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isModule" formControlName="isModuleOrStandalone"
+                  id="isModule">
+                <label class="form-check-label" for="isModule">
+                  Cada entidad sera un modulo.
+                </label>
+              </div>
+              <!-- is standalone  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isStandalone" formControlName="isModuleOrStandalone"
+                  id="isStandalone">
+                <label class="form-check-label" for="isStandalone">
+                  Cada componente del CRUD sera un standalone Component.
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- if app-with-template-and-dir-entities -->
+        <div *ngIf="bModeG?.get('builderMode')?.value == 'app-with-template-and-dir-entities'">
+          <div class="row">
+            <!-- Name app -->
+            <div class="col-md-6">
+              <label for="nameApp" class=" form-label">App Name</label>
+              <div>
+                <input id="nameApp" formControlName="nameApp" class="form-control form-control-sm " type="text"
+                  placeholder="App Name" autocomplete="off"
+                  [ngClass]="{'is-invalid': (fm['nameApp'].touched || fm['nameApp'].dirty) && !fm['nameApp'].valid}">
+                <div class="spacer"
+                  [ngClass]="{'d-none': (fm['nameApp'].touched || fm['nameApp'].dirty) && !fm['nameApp'].valid }">
+                </div>
+                <span class="invalid-feedback">
+                  <em class="d-block" *ngIf="fm['nameApp']?.hasError('required')">
+                    {{validationForms.required}}
+                  </em>
+                </span>
+              </div>
+            </div>
+            <!-- select app template -->
+            <div class="col-md-6">
+              <label class="form-label">App Templates</label>
+              <select id="'app-templates" class="form-select form-select-sm" aria-label="Default select example"
+                formControlName="appTemplates"
+                [ngClass]="{'is-invalid': (fm['appTemplates'].touched || fm['appTemplates'].dirty) && !fm['appTemplates'].valid }">
+
+                <option *ngFor="let opt of templateOptions" [value]="opt">{{opt}}</option>
+              </select>
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['appTemplates'].touched || fm['appTemplates'].dirty) && !fm['appTemplates'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['appTemplates']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- pathDirEntities -->
+          <div>
+            <label for="pathDirEntities" class=" form-label">Path of directory entities</label>
+            <div>
+              <input id="pathDirEntities" formControlName="pathDirEntities" class="form-control form-control-sm "
+                type="text" placeholder="Path of directory entities" autocomplete="off"
+                [ngClass]="{'is-invalid': (fm['pathDirEntities'].touched || fm['pathDirEntities'].dirty) && !fm['pathDirEntities'].valid}">
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['pathDirEntities'].touched || fm['pathDirEntities'].dirty) && !fm['pathDirEntities'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['pathDirEntities']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- Entities config -->
+          <div>
+            <!-- is in memory  -->
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" value="" formControlName="isInMemory" id="isInMemory">
+              <label class="form-check-label" for="isInMemory">
+                Servicio de almacenamiento de datos en memoria
+              </label>
+            </div>
+
+            <div formGroupName="configEntities">
+              <!-- simple Component -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="simple" formControlName="isModuleOrStandalone"
+                  id="simple">
+                <label class="form-check-label" for="simple">
+                  Cada componente del CRUD sera un Componente simple.
+                </label>
+              </div>
+
+              <!-- is module  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isModule" formControlName="isModuleOrStandalone"
+                  id="isModule">
+                <label class="form-check-label" for="isModule">
+                  Cada entidad sera un modulo.
+                </label>
+              </div>
+              <!-- is standalone  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isStandalone" formControlName="isModuleOrStandalone"
+                  id="isStandalone">
+                <label class="form-check-label" for="isStandalone">
+                  Cada componente del CRUD sera un standalone Component.
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- If app-with-only-template -->
+        <div *ngIf="bModeG?.get('builderMode')?.value == 'app-with-only-template'">
+          <!-- Name app -->
+          <div>
+            <label for="nameApp" class=" form-label">App Name</label>
+            <div>
+              <input id="nameApp" formControlName="nameApp" class="form-control form-control-sm " type="text"
+                placeholder="App Name" autocomplete="off"
+                [ngClass]="{'is-invalid': (fm['nameApp'].touched || fm['nameApp'].dirty) && !fm['nameApp'].valid}">
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['nameApp'].touched || fm['nameApp'].dirty) && !fm['nameApp'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['nameApp']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- select app template -->
+          <div>
+            <label class="form-label">App Templates</label>
+            <select id="'app-templates" class="form-select form-select-sm" aria-label="Default select example"
+              formControlName="appTemplates"
+              [ngClass]="{'is-invalid': (fm['appTemplates'].touched || fm['appTemplates'].dirty) && !fm['appTemplates'].valid }">
+
+              <option *ngFor="let opt of templateOptions" [value]="opt">{{opt}}</option>
+            </select>
+            <div class="spacer"
+              [ngClass]="{'d-none': (fm['appTemplates'].touched || fm['appTemplates'].dirty) && !fm['appTemplates'].valid }">
+            </div>
+            <span class="invalid-feedback">
+              <em class="d-block" *ngIf="fm['appTemplates']?.hasError('required')">
+                {{validationForms.required}}
+              </em>
+            </span>
+          </div>
+        </div>
+
+        <!-- If crud-with-dir entities -->
+        <div *ngIf="bModeG?.get('builderMode')?.value == 'crud-with-dir-entities'">
+          <!-- Path dir angular proj -->
+          <div>
+            <label for="pathDirAngularProj" class=" form-label">Path of Angular project</label>
+            <div>
+              <input id="pathDirAngularProj" formControlName="pathDirAngularProj" class="form-control form-control-sm "
+                type="text" placeholder="Path of Angular project" autocomplete="off"
+                [ngClass]="{'is-invalid': (fm['pathDirAngularProj'].touched || fm['pathDirAngularProj'].dirty) && !fm['pathDirAngularProj'].valid}">
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['pathDirAngularProj'].touched || fm['pathDirAngularProj'].dirty) && !fm['pathDirAngularProj'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['pathDirAngularProj']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- pathDirEntities -->
+          <div>
+            <label for="pathDirEntities" class=" form-label">Path of directory entities</label>
+            <div>
+              <input id="pathDirEntities" formControlName="pathDirEntities" class="form-control form-control-sm "
+                type="text" placeholder="Path of directory entities" autocomplete="off"
+                [ngClass]="{'is-invalid': (fm['pathDirEntities'].touched || fm['pathDirEntities'].dirty) && !fm['pathDirEntities'].valid}">
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['pathDirEntities'].touched || fm['pathDirEntities'].dirty) && !fm['pathDirEntities'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['pathDirEntities']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- Entities config -->
+          <div>
+            <!-- is in memory  -->
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" value="" formControlName="isInMemory" id="isInMemory">
+              <label class="form-check-label" for="isInMemory">
+                Servicio de almacenamiento de datos en memoria
+              </label>
+            </div>
+
+            <div formGroupName="configEntities">
+              <!-- simple Component -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="simple" formControlName="isModuleOrStandalone"
+                  id="simple">
+                <label class="form-check-label" for="simple">
+                  Cada componente del CRUD sera un Componente simple.
+                </label>
+              </div>
+
+              <!-- is module  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isModule" formControlName="isModuleOrStandalone"
+                  id="isModule">
+                <label class="form-check-label" for="isModule">
+                  Cada entidad sera un modulo.
+                </label>
+              </div>
+              <!-- is standalone  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isStandalone" formControlName="isModuleOrStandalone"
+                  id="isStandalone">
+                <label class="form-check-label" for="isStandalone">
+                  Cada componente del CRUD sera un standalone Component.
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- If crud-with-one entity -->
+        <div *ngIf="bModeG?.get('builderMode')?.value == 'crud-with-one-file-entity'">
+          <!-- Path dir angular proj -->
+          <div>
+            <label for="pathDirAngularProj" class=" form-label">Path of Angular project</label>
+            <div>
+              <input id="pathDirAngularProj" formControlName="pathDirAngularProj" class="form-control form-control-sm "
+                type="text" placeholder="Path of Angular project" autocomplete="off"
+                [ngClass]="{'is-invalid': (fm['pathDirAngularProj'].touched || fm['pathDirAngularProj'].dirty) && !fm['pathDirAngularProj'].valid}">
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['pathDirAngularProj'].touched || fm['pathDirAngularProj'].dirty) && !fm['pathDirAngularProj'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['pathDirAngularProj']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- pathfileEntity -->
+          <div>
+            <label for="pathfileEntity" class=" form-label">Path of file Entity</label>
+            <div>
+              <input id="pathfileEntity" formControlName="pathfileEntity" class="form-control form-control-sm "
+                type="text" placeholder="Path of file Entity" autocomplete="off"
+                [ngClass]="{'is-invalid': (fm['pathfileEntity'].touched || fm['pathfileEntity'].dirty) && !fm['pathfileEntity'].valid}">
+              <div class="spacer"
+                [ngClass]="{'d-none': (fm['pathfileEntity'].touched || fm['pathfileEntity'].dirty) && !fm['pathfileEntity'].valid }">
+              </div>
+              <span class="invalid-feedback">
+                <em class="d-block" *ngIf="fm['pathfileEntity']?.hasError('required')">
+                  {{validationForms.required}}
+                </em>
+              </span>
+            </div>
+          </div>
+          <!-- Entities config -->
+          <div>
+            <!-- is in memory  -->
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" value="" formControlName="isInMemory" id="isInMemory">
+              <label class="form-check-label" for="isInMemory">
+                Servicio de almacenamiento de datos en memoria
+              </label>
+            </div>
+
+            <div formGroupName="configEntities">
+              <!-- simple Component -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="simple" formControlName="isModuleOrStandalone"
+                  id="simple">
+                <label class="form-check-label" for="simple">
+                  Cada componente del CRUD sera un Componente simple.
+                </label>
+              </div>
+
+              <!-- is module  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isModule" formControlName="isModuleOrStandalone"
+                  id="isModule">
+                <label class="form-check-label" for="isModule">
+                  Cada entidad sera un modulo.
+                </label>
+              </div>
+              <!-- is standalone  -->
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="radio" value="isStandalone" formControlName="isModuleOrStandalone"
+                  id="isStandalone">
+                <label class="form-check-label" for="isStandalone">
+                  Cada componente del CRUD sera un standalone Component.
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display command -->
+      <div class="d-grid  d-md-flex justify-content-md-end">
+        <button class="efectclick btn btn-sm btn-link text-decoration-none btn-outline-none mt-5" type="submit"><fa-icon
+            class="fs-4 text-dark " [icon]="iconCopy"></fa-icon></button>
+      </div>
+      <div role="button" (click)="copy()" style="height: 3rem; overflow-x: auto;" class="bg-dark   rounded">
+        <span style="font-family: monospace; user-select: none; line-height: 3rem;" class="text-white sammy-wrap">$
+          {{command}}</span>
+      </div>
+      <div class="d-grid  d-md-flex justify-content-md-end">
+        <em *ngIf="copied">
+          Copied
+        </em>
+      </div>
+    </form>
+  </div>
+
+
+</div>

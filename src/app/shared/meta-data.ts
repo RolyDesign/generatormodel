@@ -93,3 +93,7 @@ export const helpeMessage ={
   DisplayName:"Define el nombre de la entidad en el UI",
   entityPluralName: "Define el nombre de la entidad en plural"
 }
+
+export enum TemplatesOptions{
+  coreui = "coreui"
+}
