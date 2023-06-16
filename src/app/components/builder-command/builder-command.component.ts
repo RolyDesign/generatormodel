@@ -36,7 +36,7 @@ export class BuilderCommandComponent implements OnInit {
     this.builderCommand.valueChanges.subscribe((res) => {
       this.buildCommandText();
       this.builderCommand.markAsUntouched();
-      this.copied = false
+      this.copied = false;
     });
   }
 
@@ -45,11 +45,9 @@ export class BuilderCommandComponent implements OnInit {
       this.builderCommand?.get('builderModeGroup.builderMode')?.value ==
       'app-with-evaproj'
     ) {
-      this.command = `eva new a
-      -t
-      ${this.builderCommand.get('appTemplates')?.value || '<AppTemplate>'}
-      -f
-      "${
+      this.command = `eva new a -t ${
+        this.builderCommand.get('appTemplates')?.value || '<AppTemplate>'
+      } -f "${
         this.builderCommand.get('pathFileEvaProj')?.value ||
         '<PathFile.evaproj>'
       }"
@@ -160,12 +158,18 @@ export class BuilderCommandComponent implements OnInit {
   }
 
   copy() {
-      navigator.clipboard.writeText(this.command);
-      this.builderCommand.markAllAsTouched();
-      this.copied = true;
-      setTimeout(() => {
-        this.copied = false;
-      }, 2000);
+    navigator.clipboard.writeText(this.command.trim())
+  .then(() => {
+    this.copied = true;
+    this.builderCommand.markAllAsTouched();
+
+    setTimeout(() => {
+      this.copied = false;
+    }, 2000);
+  })
+  .catch(err => {
+    console.error('Error al copiar al portapapeles:', err)
+  })
   }
 
   get fm() {
@@ -175,3 +179,5 @@ export class BuilderCommandComponent implements OnInit {
     return this.builderCommand.get('builderModeGroup');
   }
 }
+
+

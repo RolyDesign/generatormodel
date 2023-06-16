@@ -1,6 +1,11 @@
 <div class="container">
   <div class="py-4">
-    <h4 class="mb-4">Builder Command</h4>
+    <div class="d-flex justify-content-between align-items-center" >
+      <h4 class="mb-4">Builder Command</h4>
+      <div>
+        <button [routerLink]="'/app/detail'" class="btn btn-primary btn-sm">To Back</button>
+      </div>
+    </div>
     <form class="row" [formGroup]="builderCommand" (ngSubmit)="copy()">
       <div class="col-md-6">
         <div formGroupName="builderModeGroup">
@@ -420,8 +425,8 @@
       <!-- Display command -->
       <div class="d-grid  d-md-flex justify-content-md-between align-items-center mt-5">
         <span class="fw-bold">Command</span>
-        <button title="Copy to clipboard" class="efectclick btn btn-sm btn-link text-decoration-none btn-outline-none " type="submit"><fa-icon
-            class="fs-4 text-dark " [icon]="iconCopy"></fa-icon></button>
+        <button title="Copy to clipboard" class="efectclick btn btn-sm btn-link text-decoration-none btn-outline-none "
+          type="submit"><fa-icon class="fs-4 text-dark " [icon]="iconCopy"></fa-icon></button>
       </div>
       <div role="button" (click)="copy()" style="height: 3rem; overflow-x: auto;" class="bg-dark   rounded">
         <span style="font-family: monospace; user-select: none; line-height: 3rem;" class="text-white sammy-wrap">$
