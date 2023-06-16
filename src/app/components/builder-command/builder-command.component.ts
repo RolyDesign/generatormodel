@@ -45,10 +45,10 @@ export class BuilderCommandComponent implements OnInit {
       this.builderCommand?.get('builderModeGroup.builderMode')?.value ==
       'app-with-evaproj'
     ) {
-      this.command = `eva new app
-      --template
+      this.command = `eva new a
+      -t
       ${this.builderCommand.get('appTemplates')?.value || '<AppTemplate>'}
-      --file
+      -f
       "${
         this.builderCommand.get('pathFileEvaProj')?.value ||
         '<PathFile.evaproj>'
@@ -70,12 +70,12 @@ export class BuilderCommandComponent implements OnInit {
       this.builderCommand?.get('builderModeGroup.builderMode')?.value ==
       'app-with-template-and-dir-entities'
     ) {
-      this.command = `eva new app
-      --name
+      this.command = `eva new a
+      -n
       ${this.builderCommand.get('nameApp')?.value || '<NameApp>'}
-      --template
+      -t
       ${this.builderCommand.get('appTemplates')?.value || '<AppTemplate>'}
-      --entities
+      -e
       "${
         this.builderCommand.get('pathDirEntities')?.value || '<PathDirEntities>'
       }"
@@ -96,10 +96,10 @@ export class BuilderCommandComponent implements OnInit {
       this.builderCommand?.get('builderModeGroup.builderMode')?.value ==
       'app-with-only-template'
     ) {
-      this.command = `eva new app
-      --name
+      this.command = `eva new a
+      -n
       ${this.builderCommand.get('nameApp')?.value || '<NameApp>'}
-      --template
+      -t
       ${this.builderCommand.get('appTemplates')?.value || '<AppTemplate>'}
       `;
     }
@@ -108,13 +108,13 @@ export class BuilderCommandComponent implements OnInit {
       this.builderCommand?.get('builderModeGroup.builderMode')?.value ==
       'crud-with-dir-entities'
     ) {
-      this.command = `eva new
-      --outDirectory
+      this.command = `eva new e
+      -o
       "${
         this.builderCommand.get('pathDirAngularProj')?.value ||
         '<PathDirAngularProj>'
       }"
-      --modelsDirectory
+      -ms
       "${
         this.builderCommand.get('pathDirEntities')?.value || '<PathDirEntities>'
       }"
@@ -135,13 +135,13 @@ export class BuilderCommandComponent implements OnInit {
       this.builderCommand?.get('builderModeGroup.builderMode')?.value ==
       'crud-with-one-file-entity'
     ) {
-      this.command = `eva new
-      --outDirectory
+      this.command = `eva new e
+      -o
      "${
        this.builderCommand.get('pathDirAngularProj')?.value ||
        '<PathDirAngularProj>'
      }"
-      --modelsDirectory
+      -m
       "${
         this.builderCommand.get('pathfileEntity')?.value || '<PathFileEntity>'
       }"

@@ -1,30 +1,114 @@
 <div class="container">
- <div class="py-4">
-  <h2>Guia</h2>
-  <section>
-    <article>
-      <h2 class="fs-4">Description</h2>
-      <p>
-        Esta herramienta esta pensada unica y exclusivamente para la generacion de modelos de entidades con un esquema espesifico para su uso en la aplicacion Eva dessarrollada para generar CRUD Operation
-        en aplicaciones de Angular.
-      </p>
-    </article>
-   <article>
-    <h3>
-      Atajos de comandos
-    </h3>
-    <p>
-      * Si se ejecuta el comando dentro en la arpeta raiz de un proyecto de angular puede presindir de la ocion -o para el output directory
+  <div class="py-4">
+    <h2>Guia</h2>
+    <section>
+      <article>
+        <h2 class="fs-4">Description</h2>
+        <p>
+          Esta herramienta esta creada unica y exclusivamente para la generacion de modelos de entidades con un esquema
+          espesifico para su uso en la aplicacion Eva dessarrollada para generar CRUD Operation
+          en aplicaciones de Angular.
+        </p>
+      </article>
+      <article>
+        <h3>
+          Objetivo
+        </h3>
+        <p>
+          Disminuir el tiempo de elavoracion de modelos para la generacion de los CRUD operation que se relizaran con
+          eva app.
+        </p>
 
-    </p>
-    <p>
-      * Si se ejecuta el comando dentro en la arpeta raiz de un proyecto de angular y se tiene un archivo modelo de entidad en la raiz del proyecto con el nombre model puede presindir de la ocion -m para el model
-    </p>
+        <p>
+          Esta guia no prentende ser una documentacion presisa del funcionamiento de eva mas bien es una guia para el
+          uso de esta app que es
+          una herramienta para el uso de eva
+        </p>
 
-    <p>
-      * Tarea Perfecionar los mensages de la ayuda del cli con estos atajos
-    </p>
-   </article>
-  </section>
- </div>
+        <h3>
+          Posibles errores
+        </h3>
+        <p>
+          Es muy probable que pueda cometer errores en la generacion de modelos si crea los modelos manualmente por eso
+          esta app le viene a facilitar la vida.
+          Se ha creado esta app validando extrictamente los datos insertados para evitar todo lo posible el surgimiento
+          de errores
+          a causa de un modelo mal elavorado. Aun asi esta app le ayuda a construir los comandos que usara en eva para
+          que una ves terminado su modelo
+          construya el comando conveniente y sea tan facil como copiar y pegar el comando
+        </p>
+
+        <h3>
+          Uso
+        </h3>
+        <p>
+          La aplicacion como ya te habras dado cuenta comienza brindandote dos opciones, crear una nueva app , o abrir
+          un proyecto existente.
+          Pro el momento es una aplicacion sencilla por lo que su almacenamiento de datos esa vinculado al local storage
+          del navegador.
+          Puede comenzar creando una nueva app e insertando un nombre de aplicacion, este nombre sera el que se
+          utilizara para su aplicacion de angular
+          y muy probablemente en un futuro en su api. Todos los formularios estan estrictamente validados por lo que no
+          podra avanzar de un punto a otro sin
+          correjir los errores que se muestran.
+
+        </p>
+        <p>
+          Una vez insertado un nombre tiene por primera vez su vista prncipal claro que vacia con tan solo el nombre de
+          su app.
+          Comience creando su primera entidad, nuevamente aqui el formulario esta validado y puede tener ayuda dejando
+          el puntero del mouse ensima de
+          los controles.
+          En esta seccion el campo name u plural name deve de escribirlos con letra inicial mayuscula para evitar
+          errores de conventions en el
+          proyecto de angular
+        </p>
+        <p>
+          Creada la entidad puede ver que crea un campo  por usted si da click en fields de esta entidad vera que es un
+          campo id
+          campo que es estrictamente nesesario por lo que solo tiene la accion de edicion. si entra a editar ese campo
+          vera que solo hay un campo del formulario habilitado
+          y es lo que se quiere que solo pueda editar el tipo de dato de ese campo id que solo puede ser number , o
+          string
+        </p>
+        <p>
+          Para generar un nuevo campo simplemente de click en la accion fieldas de la entidad a la que se quiere agregar un nuevocampo y en la vista de sus campos esta la opcion de new
+          fields.
+          Este formulario es el mas largo pero si te das cuenta muchos campos son de tipo select por lo que se facilita su llenado.
+          Aqui muchos campos puden no ser requeridos pero eso lo controla la aplicacion deshabilitando os campos o sea si usted deshabilita un campo
+          entonses ese campo es requerido.
+          Por ejemplo si usted activa el checkbox para asignar validadores tiene entonces que asignar al menos un validador con su respectivo valor
+          y si no va a usar validadores pues simplemente deshabilita estos campos. por lo demas muchos campos se habilitaran o se dehabilitran
+          segun los datos insertados, solo recarcar que cada campo que este habilitado es requerido.
+
+        </p>
+        <h3>Forms Fields</h3>
+        <p>
+          Este formulario es uno de los mas extensos pero ni para tanto :).
+          Es importante que este formulario se comiense a llenar de izquierda a derecha pues muchos campos de la derecha dependen de campos de la izquierda
+          por lo que si usted comienza por poner los validadores y despues cambia el tipo de dato todos los datos que esten despues del campo de
+          Type  se eliminaran para asi evitar que queden datos incorectos en la "derecha" segun los datos en la "izquierda" creo que no es dificil entender
+          solo para evitar inconvenientes comience siempre su formulario de Fields  de izquierda a derecha.
+          Aqui les ejo un gif con un demo.
+        </p>
+        <div style="width: 100vw;" >
+          <img style="width: 50rem;" src="../../assets/images/izquirda derecha.gif" alt="">
+
+        </div>
+        <p>
+          * Si se ejecuta el comando dentro en la arpeta raiz de un proyecto de angular puede presindir de la ocion -o
+          para el output directory
+
+        </p>
+        <p>
+          * Si se ejecuta el comando dentro en la arpeta raiz de un proyecto de angular y se tiene un archivo modelo de
+          entidad en la raiz del proyecto con el nombre model puede presindir de la ocion -m para el model
+        </p>
+
+        <p>
+          * Tarea Perfecionar los mensages de la ayuda del cli con estos atajos
+        </p>
+      </article>
+    </section>
+  </div>
 </div>

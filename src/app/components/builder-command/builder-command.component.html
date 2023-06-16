@@ -188,7 +188,7 @@
           <!-- Entities config -->
           <div>
             <!-- is in memory  -->
-            <div class="form-check mt-3">
+            <div class="form-check ">
               <input class="form-check-input" type="checkbox" value="" formControlName="isInMemory" id="isInMemory">
               <label class="form-check-label" for="isInMemory">
                 Servicio de almacenamiento de datos en memoria
@@ -303,7 +303,7 @@
           <!-- Entities config -->
           <div>
             <!-- is in memory  -->
-            <div class="form-check mt-3">
+            <div class="form-check ">
               <input class="form-check-input" type="checkbox" value="" formControlName="isInMemory" id="isInMemory">
               <label class="form-check-label" for="isInMemory">
                 Servicio de almacenamiento de datos en memoria
@@ -379,7 +379,7 @@
           <!-- Entities config -->
           <div>
             <!-- is in memory  -->
-            <div class="form-check mt-3">
+            <div class="form-check ">
               <input class="form-check-input" type="checkbox" value="" formControlName="isInMemory" id="isInMemory">
               <label class="form-check-label" for="isInMemory">
                 Servicio de almacenamiento de datos en memoria
@@ -418,8 +418,9 @@
       </div>
 
       <!-- Display command -->
-      <div class="d-grid  d-md-flex justify-content-md-end">
-        <button class="efectclick btn btn-sm btn-link text-decoration-none btn-outline-none mt-5" type="submit"><fa-icon
+      <div class="d-grid  d-md-flex justify-content-md-between align-items-center mt-5">
+        <span class="fw-bold">Command</span>
+        <button title="Copy to clipboard" class="efectclick btn btn-sm btn-link text-decoration-none btn-outline-none " type="submit"><fa-icon
             class="fs-4 text-dark " [icon]="iconCopy"></fa-icon></button>
       </div>
       <div role="button" (click)="copy()" style="height: 3rem; overflow-x: auto;" class="bg-dark   rounded">
