@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
-import { TemplatesOptions, VALIDATION_FORMS } from 'src/app/shared/meta-data';
+import { Mode, TemplatesOptions, VALIDATION_FORMS } from 'src/app/shared/meta-data';
+import { ModePreferenceService } from 'src/app/shared/mode-preference.service';
 
 @Component({
   selector: 'app-builder-command',
@@ -9,13 +10,17 @@ import { TemplatesOptions, VALIDATION_FORMS } from 'src/app/shared/meta-data';
   styleUrls: ['./builder-command.component.scss'],
 })
 export class BuilderCommandComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+    private modeSvc: ModePreferenceService) {}
   builderCommand!: FormGroup;
   templateOptions = [TemplatesOptions.coreui];
   validationForms = VALIDATION_FORMS;
   command!: string;
   iconCopy = faCopy;
   copied = false;
+  mode$ = this.modeSvc.getMode()
+  modes = Mode
+
   ngOnInit(): void {
     this.builderCommand = this.fb.group({
       builderModeGroup: this.fb.group({

@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 //import { navItems } from './_nav';
-import { INavData } from '@coreui/angular';
 import { appModel } from '../../shared/model-interfaces';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { ActionModalHeaerService } from 'src/app/shared/action-modal-heaer.service';
@@ -12,14 +11,15 @@ import { APP_SCHEMA } from 'src/app/shared/schema';
 import Ajv from 'ajv';
 import { actionsModal } from '../action-modal.const';
 import { MESSAGE } from 'src/app/shared/message.modal';
+import { ModePreferenceService } from 'src/app/shared/mode-preference.service';
+import { Mode } from 'src/app/shared/meta-data';
+import { ValidatorSchemaService } from 'src/app/shared/validatorschema.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
 })
 export class DefaultLayoutComponent implements OnInit {
-  public navItems: INavData[] = [];
-
   public perfectScrollbarConfig = {
     suppressScrollX: true,
   };
@@ -27,11 +27,15 @@ export class DefaultLayoutComponent implements OnInit {
   messageError = '';
   action$ = this.actionMNodal.getAction$;
   actionsModals = actionsModal;
+  mode$ = this.modeSvc.getMode()
+  modes = Mode
 
   constructor(
     private dataStorage: LocalStorageService,
     private actionMNodal: ActionModalHeaerService,
-    private router: Router
+    private router: Router,
+    private modeSvc: ModePreferenceService,
+    private validatorAppSchema: ValidatorSchemaService,
   ) {}
 
   @ViewChild('upload') upload!: ElementRef;
@@ -68,7 +72,8 @@ export class DefaultLayoutComponent implements OnInit {
             this.dataStorage.addDataStorage(
               JSON.parse(reader.result as string)
             );
-            this.router.navigate(['/app/detail']);
+            this.validatorAppSchema.validatorSchema = this.validatorAppSchema.validateAppSchema()
+            //this.router.navigate(['/app/detail']);
           }
         } catch {
           this.actionMNodal.action = actionsModal.importFailed;

@@ -26,6 +26,7 @@ export class EditEntityComponent implements OnInit{
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(this.id)
     this.entityService.getById(this.id).pipe(take(1)).subscribe((res) => {
       this.entity = this.fb.group({
         Name: [res.Name, [Validators.required]],

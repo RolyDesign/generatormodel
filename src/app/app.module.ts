@@ -51,14 +51,13 @@ import { InitialComponent } from './components/initial/initial.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
 import { NewProjectComponent } from './components/new-project/new-project.component';
 import { CreateEntityComponent } from './components/create-entity/create-entity.component';
-import{ConfirmComponent}from './shared/components/confirm/confirm.component';
+import { ConfirmComponent } from './shared/components/confirm/confirm.component';
 import { EditEntityComponent } from './components/edit-entity/edit-entity.component';
 import { AddFieldComponent } from './components/add-field/add-field.component';
-import { ListFieldsComponent } from './components/list-fields/list-fields.component'
-import{EditAppComponent} from './components/editapp/editapp.component';
+import { ListFieldsComponent } from './components/list-fields/list-fields.component';
+import { EditAppComponent } from './components/editapp/editapp.component';
 import { EditFieldComponent } from './components/edit-field/edit-field.component';
-import { BuilderCommandComponent } from './components/builder-command/builder-command.component'
-
+import { BuilderCommandComponent } from './components/builder-command/builder-command.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -72,7 +71,20 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, GuideComponent, InitialComponent, AppDetailComponent, NewProjectComponent, EditAppComponent, CreateEntityComponent, EditEntityComponent, AddFieldComponent, ListFieldsComponent, EditFieldComponent, BuilderCommandComponent],
+  declarations: [
+    AppComponent,
+    ...APP_CONTAINERS,
+    InitialComponent,
+    AppDetailComponent,
+    NewProjectComponent,
+    EditAppComponent,
+    CreateEntityComponent,
+    EditEntityComponent,
+    AddFieldComponent,
+    ListFieldsComponent,
+    EditFieldComponent,
+    BuilderCommandComponent,
+  ],
   imports: [
     ConfirmComponent,
     BrowserModule,
@@ -103,17 +115,16 @@ const APP_CONTAINERS = [
     CardModule,
     HttpClientModule,
     FontAwesomeModule,
-    FormModule
+    FormModule,
   ],
   providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-    },
+    // {
+    //   provide: PERFECT_SCROLLBAR_CONFIG,
+    //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    // },
     IconSetService,
-    Title
+    Title,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

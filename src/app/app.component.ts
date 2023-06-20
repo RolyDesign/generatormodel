@@ -1,40 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-
-import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from './icons/icon-subset';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalStorageService } from './shared/local-storage.service';
-
+import { ModePreferenceService } from './shared/mode-preference.service';
 
 @Component({
   selector: 'app-root',
   template: '<router-outlet></router-outlet>',
+
 })
-export class AppComponent implements OnInit {
-  title = 'CoreUI Free Angular Admin Template';
-
-
+export class AppComponent {
+  title = 'builder-model';
   constructor(
     private router: Router,
-    private titleService: Title,
-    private iconSetService: IconSetService,
     private dataStorage: LocalStorageService,
-  ) {
-    titleService.setTitle(this.title);
-    // iconSet singleton
-    iconSetService.icons = { ...iconSubset };
-  }
+    private modeSvc: ModePreferenceService
+  ) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-    });
+    const mode = window.localStorage.getItem('eva-app-mode');
+    console.log(mode);
+    if (mode) {
+      this.modeSvc.setMode = mode;
+    }
     const dataLocalStotage = this.dataStorage.getLocalStotage();
     if (dataLocalStotage) {
-      this.dataStorage.addDataStorage(dataLocalStotage)
+      this.dataStorage.addDataStorage(dataLocalStotage);
       this.router.navigate(['/']);
     } else {
       this.router.navigate(['/initial']);

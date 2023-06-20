@@ -1,13 +1,11 @@
-<div class="container">
+<div [ngClass]="{'text-white': (mode$ | async) == modes.dark}" class="container ">
   <div class="py-4">
-    <div class="d-flex justify-content-between align-items-center" >
+    <div class="d-flex justify-content-between align-items-center">
       <h4 class="mb-4">Builder Command</h4>
-      <div>
-        <button [routerLink]="'/app/detail'" class="btn btn-primary btn-sm">To Back</button>
-      </div>
+
     </div>
     <form class="row" [formGroup]="builderCommand" (ngSubmit)="copy()">
-      <div class="col-md-6">
+      <div class="col-md-6 ">
         <div formGroupName="builderModeGroup">
           <!-- app with evaproj -->
           <div class="form-check">
@@ -53,6 +51,9 @@
               Crear CRUD con un file de entidad.
             </label>
           </div>
+        </div>
+        <div>
+          <button [routerLink]="'/app/detail'" class="btn btn-primary btn-sm mt-5 w-25">To Back</button>
         </div>
       </div>
 
@@ -425,13 +426,21 @@
       <!-- Display command -->
       <div class="d-grid  d-md-flex justify-content-md-between align-items-center mt-5">
         <span class="fw-bold">Command</span>
-        <button title="Copy to clipboard" class="efectclick btn btn-sm btn-link text-decoration-none btn-outline-none "
-          type="submit"><fa-icon class="fs-4 text-dark " [icon]="iconCopy"></fa-icon></button>
+        <button title="Copy to clipboard"
+          class="efectclick btn btn-sm btn-link text-decoration-none btn-outline-none text-dark " type="submit"><fa-icon
+            class="fs-4   " [ngClass]="{'text-light ': (mode$ | async) == modes.dark}"
+            [icon]="iconCopy"></fa-icon></button>
       </div>
-      <div role="button" (click)="copy()" style="height: 3rem; overflow-x: auto;" class="bg-dark   rounded">
-        <span style="font-family: monospace; user-select: none; line-height: 3rem;" class="text-white sammy-wrap">$
+
+      <div *ngIf="(mode$ | async) != modes.dark" role="button" (click)="copy()" style="height: 3rem; overflow-x: auto;" class="bg-dark rounded">
+        <span style="font-family: monospace; user-select: none; line-height: 3rem;" class="sammy-wrap text-light">$
           {{command}}</span>
       </div>
+      <div *ngIf="(mode$ | async) == modes.dark" role="button" (click)="copy()" style="height: 3rem; overflow-x: auto;" class="bg-light rounded">
+        <span style="font-family: monospace; user-select: none; line-height: 3rem;" class="sammy-wrap text-dark">$
+          {{command}}</span>
+      </div>
+
       <div class="d-grid  d-md-flex justify-content-md-end">
         <em *ngIf="copied">
           Copied

@@ -44,7 +44,6 @@ const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
-
     children: [
       {
         path: 'app/detail',
@@ -81,26 +80,10 @@ const routes: Routes = [
         component: BuilderCommandComponent,
         title:'Builder Command'
       },
-
-      // {
-      //   path: 'models',
-      //   component: ReadmodelsComponent,
-      //   title:'Generator Model'
-      // },
-      // {
-      //   path: 'model/:name/edit',
-      //   component: ModelEditComponent,
-      //   title:'Edit Model'
-      // },
-      // {
-      //   path: 'generator',
-      //   component: GeneratorModelComponent,
-      //   title:'Add Model'
-      // },
       {
         path: 'guide',
-        component: GuideComponent,
-        title:'Guide'
+        loadChildren: () =>
+          import('./components/prueva/prueva.module').then((m) => m.PruevaModule)
       },
       {
         path: 'pages',
@@ -143,9 +126,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'top',
-      anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      //scrollPositionRestoration: 'top',
+      //anchorScrolling: 'enabled',
+      //initialNavigation: 'enabledBlocking'
       // relativeLinkResolution: 'legacy'
     })
   ],

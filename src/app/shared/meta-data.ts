@@ -97,3 +97,10 @@ export const helpeMessage ={
 export enum TemplatesOptions{
   coreui = "coreui"
 }
+
+
+
+export const Mode = {
+  dark: "Dark",
+  light: 'Light'
+}

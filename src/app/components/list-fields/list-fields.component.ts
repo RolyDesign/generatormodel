@@ -7,6 +7,8 @@ import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { AppService } from 'src/app/shared/app.service';
 import { FieldService } from 'src/app/shared/field.service';
 import { EntityService } from 'src/app/shared/entity.service';
+import { Mode } from 'src/app/shared/meta-data';
+import { ModePreferenceService } from 'src/app/shared/mode-preference.service';
 
 const actionsModal = {
   new: 'new',
@@ -31,11 +33,14 @@ export class ListFieldsComponent {
   actionsModalsConst = actionsModal;
   fieldId!: number;
   fieldName!: string;
+  mode$ = this.modeSvc.getMode()
+  modes = Mode
 
   constructor(
     private route: ActivatedRoute,
     private fieldService: FieldService,
-    private entityService: EntityService
+    private entityService: EntityService,
+    private modeSvc: ModePreferenceService
   ) {}
 
   ngOnInit(): void {

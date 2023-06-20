@@ -1,189 +1,41 @@
-<!--<c-header class="mb-4 d-print-none" position="sticky">-->
-<!-- <ng-container>
-  <c-container [fluid]="true">
-    <button
-      toggle="visible"
-      cHeaderToggler
-      [cSidebarToggle]="sidebarId"
-      class="ps-1"
-    >
-      <svg cIcon
-        name="cilMenu"
-        size="lg"
-      ></svg>
-    </button>
-    <c-header-nav class="d-none d-lg-flex me-auto">
-      <c-nav-item>
-        <a cNavLink routerLink="/dashboard" routerLinkActive="active">
-          Dashboard
-        </a>
-      </c-nav-item>
-    </c-header-nav>
-
-    <c-header-nav class="d-none d-lg-flex">
-      <c-nav-item>
-        <a routerLink="./" cNavLink>
-          <svg cIcon name="cilBell" size="lg"></svg>
-        </a>
-      </c-nav-item>
-      <c-nav-item>
-        <a routerLink="./" cNavLink>
-          <svg cIcon name="cilList" size="lg"></svg>
-        </a>
-      </c-nav-item>
-      <c-nav-item>
-        <a routerLink="./" cNavLink>
-          <svg cIcon name="cilEnvelopeOpen" size="lg"></svg>
-        </a>
-      </c-nav-item>
-    </c-header-nav>
-    <c-header-nav class="ms-3">
-      <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
-    </c-header-nav>
-
-  </c-container> -->
-<!-- <c-header-divider></c-header-divider>
-  <c-container [fluid]="true">
-    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
-  </c-container>
-</ng-container> -->
-<!--</c-header>-->
-
-<!-- <ng-template #userDropdown>
-  <c-dropdown alignment="end" variant="nav-item">
-    <button
-      cButton
-      color=""
-      [caret]="false"
-      cDropdownToggle
-      class="py-0"
-    >
-      <c-avatar
-        cTextColor="primary"
-        shape="rounded-1"
-        size="md"
-        src="./assets/img/avatars/8.jpg"
-        status="success"
-      >
-      </c-avatar>
-    </button>
-    <ul cDropdownMenu class="pt-0 pr-5 w-auto">
-      <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Account</h6>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilBell"></svg>
-          Updates
-          <c-badge class="ms-2 float-end" color="info">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
-          Messages
-          <c-badge class="ms-2 float-end" color="success">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilTask"></svg>
-          Tasks
-          <c-badge class="ms-2 float-end" color="danger">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name='cilCommentSquare'></svg>
-          Comments
-          <c-badge class="ms-auto" color="warning">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Settings</h6>
-      </li>
-      <li></li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilUser"></svg>
-          Profile
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilSettings"></svg>
-          Settings
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilCreditCard"></svg>
-          Payments
-          <c-badge class="ms-2 float-end" color="secondary">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilFile"></svg>
-          Projects
-          <c-badge class="ms-2 float-end" color="primary">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <hr cDropdownDivider/>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilLockLocked"></svg>
-          Lock Account
-        </a>
-      </li>
-      <li></li>
-    </ul>
-  </c-dropdown>
-</ng-template> -->
 <ng-container *ngIf="data | async as data">
   <div class="container">
-    <div class="d-flex justify-content-between  w-100">
+    <div class="d-flex justify-content-between w-100  py-3 border-bottom border-info-subtle">
       <div class="d-flex justify-content-start align-items-end">
-        <h3 class="m-0 d-flex align-items-start">{{data.Name}}</h3>
+        <h3 [ngClass]="{'text-white': (mode$ | async) == modes.dark }" class="m-0 d-flex align-items-start ">{{data.Name}}</h3>
         <a class="text-decoration-none fw-bolder ms-3 text-info " style="font-size: 0.9rem;" routerLink="/app/edit">
           Edit
         </a>
       </div>
       <div class="d-flex align-items-center">
-        <a role="button" class="text-decoration-none  ms-3 text-info nav-hover"
+        <a role="button" class="text-decoration-none  mx-2 text-info nav-hover"
           (click)="onActions(actionsModalsConst.new)" data-bs-toggle="modal" data-bs-target="#confirmModal">New</a>
         <a role="button" (click)="onActions(actionsModalsConst.open)" data-bs-toggle="modal"
-          data-bs-target="#confirmModal" class="text-decoration-none  ms-3 text-info nav-hover">Open</a>
+          data-bs-target="#confirmModal" class="text-decoration-none  mx-2 text-info nav-hover">Open</a>
 
         <a role="button" (click)="onActions(actionsModalsConst.close)" data-bs-toggle="modal"
-          data-bs-target="#confirmModal" class="text-decoration-none  ms-3 text-info nav-hover">Close</a>
+          data-bs-target="#confirmModal" class="text-decoration-none  mx-2 text-info nav-hover">Close</a>
         <button type="button" (click)="onActions(actionsModalsConst.export)" data-bs-toggle="modal"
           data-bs-target="#confirmModal" [disabled]="!(checkExport$ | async)"
-          class="btn btn-link btn-sm  ms-3 text-decoration-none  text-info nav-hover">
+          class="btn btn-link btn-sm  mx-2 text-decoration-none  text-info nav-hover">
           Export Model
         </button>
-        <div class="dropdown-center">
+        <div class="dropdown-center mx-2">
           <a class=" dropdown-toggle text-decoration-none text-info nav-hover" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Tools
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['/builder-command']">Builder Command</a></li>
-           <li><a class="dropdown-item" [routerLink]="['/guide']">Guide</a></li>
+          <ul style="font-size: 0.9rem;" class="dropdown-menu">
+            <li><a  class="dropdown-item " [routerLink]="['/builder-command']">Builder Command</a></li>
+           <li><a class="dropdown-item " [routerLink]="['/guide']">Guide</a></li>
             <!-- <li><a class="dropdown-item" href="#">Action three</a></li>  -->
+          </ul>
+        </div>
+        <div class="dropdown-center ms-2">
+          <a class=" dropdown-toggle text-decoration-none text-info nav-hover" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Settings
+          </a>
+          <ul style="font-size: 0.9rem;" class="dropdown-menu">
+            <li><span role="button" (click)="onChangeMode()" class="dropdown-item " >{{textbutonMode}} Mode</span></li>
           </ul>
         </div>
       </div>

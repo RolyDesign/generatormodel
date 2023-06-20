@@ -1,6 +1,11 @@
-<div class="container">
+<div [ngClass]="{'text-white': (mode$ | async) == modes.dark}" class="container">
   <div class="py-4">
-    <h2>Guia</h2>
+    <div class="d-flex justify-content-between">
+      <h2>Guia</h2>
+    <div>
+      <button [routerLink]="'/app/detail'" class="btn btn-primary btn-sm">To Back</button>
+    </div>
+    </div>
     <section>
       <article>
         <h2 class="fs-4">Description</h2>

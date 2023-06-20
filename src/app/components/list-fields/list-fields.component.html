@@ -1,10 +1,10 @@
 <ng-container *ngIf="fields | async as fields">
   <div class="container">
     <div>
-      <div class="bg-light mt-4 ">
-      <div class="d-flex justify-content-between">
+      <div class=" mt-4 ">
+      <div class="d-flex justify-content-between mb-2">
         <div class="d-flex justify-content-start align-items-center">
-          <h4 class="position-relative">{{entityName}} Fields
+          <h4 [ngClass]="{'text-white': (mode$ | async) == modes.dark}" class="position-relative ">{{entityName}} Fields
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size: 0.6rem;">
               {{fields.length}}
             </span>
@@ -19,8 +19,8 @@
       </div>
         <ng-container *ngIf="fields.length > 0">
         <div class="scroll-table shadow">
-          <table class="table table-striped ">
-            <thead class="bg-secondary " style="position: sticky; top: -0.01rem;">
+          <table [ngClass]="{'table-dark': (mode$ | async) == modes.dark}" class="table  table-striped ">
+            <thead class="bg-dark text-light" style="position: sticky; top: -0.01rem;">
               <tr>
                 <th>Name</th>
                 <th>Display Name</th>

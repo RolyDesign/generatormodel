@@ -9,6 +9,8 @@ import { ENTITY_SCHEMA } from 'src/app/shared/schema';
 import { appModel } from 'src/app/shared/model-interfaces';
 import{MESSAGE} from '../../shared/message.modal'
 import { ValidatorSchemaService } from 'src/app/shared/validatorschema.service';
+import { Mode } from 'src/app/shared/meta-data';
+import { ModePreferenceService } from 'src/app/shared/mode-preference.service';
 
 
 
@@ -33,12 +35,15 @@ export class AppDetailComponent implements OnInit {
   entityName = '';
   confirmMessage = '';
   actionsModal!: string;
+  mode$ = this.modeSvc.getMode()
+  modes = Mode
   @ViewChild('upload') upload!: ElementRef;
   @ViewChild("openModal") openModal!: ElementRef
   constructor(
     private router: Router,
     private entityService: EntityService,
-    private validatorAppSchema: ValidatorSchemaService
+    private validatorAppSchema: ValidatorSchemaService,
+    private modeSvc: ModePreferenceService
   ) {}
 
   ngOnInit(): void {
