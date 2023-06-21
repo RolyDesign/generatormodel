@@ -26,7 +26,7 @@ export class InitialComponent {
   catchFile(e: any) {
     const myfile = e.target.files[0];
     if (myfile) {
-      if (myfile.type && !myfile.type.includes('evaproj')) {
+      if (myfile.name && !myfile.name.includes('evaproj')) {
         this.messageError = MESSAGE.FORMAT_INCORRECT
         this.showModal = true
         return

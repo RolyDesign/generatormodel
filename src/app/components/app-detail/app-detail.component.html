@@ -77,6 +77,6 @@
 
  <confirm (action)="actions()" [id]="'confirmModalEntity'" [confirmMessage]="confirmMessage" modalTitle="Alert!!!" [hideCloseButton]="actionsModal == actionsConst.importFailed || actionsModal == actionsConst.exportFailed"></confirm>
 <!-- hide input para controlar el upload -->
-<input accept=".evaproj" (change)="catchFile($event,'file')" class="d-none" #upload type="file">
+<input accept=".modelproj" (change)="catchFile($event,'file')" class="d-none" #upload type="file">
 
 <button class="d-none" role="button" #openModal data-bs-toggle="modal" data-bs-target="#confirmModalEntity"></button>

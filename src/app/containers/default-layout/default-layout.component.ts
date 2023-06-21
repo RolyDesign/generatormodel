@@ -49,7 +49,7 @@ export class DefaultLayoutComponent implements OnInit {
   catchFile(e: any, file: string) {
     const myfile = e.target.files[0];
     if (myfile) {
-      if (myfile.type && !myfile.type.includes('evaproj')) {
+      if (myfile.name && !myfile.name.includes('evaproj')) {
         this.actionMNodal.action = actionsModal.importFailed;
         this.actionMNodal.messageModal = MESSAGE.FORMAT_INCORRECT;
         this.openModal.nativeElement.click();

@@ -101,7 +101,7 @@ export class AppDetailComponent implements OnInit {
   catchFile(e: any, file: string) {
     const myfile = e.target.files[0];
     if(myfile){
-      if (myfile.type && !myfile.type.includes('evaproj')) {
+      if (myfile.name && !myfile.name.includes('modelproj')) {
         this.actionsModal = 'importFailed'
            this.confirmMessage = MESSAGE.FORMAT_INCORRECT
            this.openModal.nativeElement.click()

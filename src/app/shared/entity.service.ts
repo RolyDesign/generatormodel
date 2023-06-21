@@ -81,7 +81,7 @@ export class EntityService {
     let entity = data.Entities.find((e) => e.Id == entityId) as IEntity;
     const file = new File(
       [JSON.stringify(entity)],
-      data.Name + '.' + entity.Name + '.evaproj',
+      data.Name + '.' + entity.Name + '.modelproj',
       {
         type: 'text/plain;charset=utf-8',
       }
