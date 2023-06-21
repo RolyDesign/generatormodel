@@ -6,7 +6,6 @@ import { Page404Component } from './views/pages/page404/page404.component';
 import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
-import { GuideComponent } from './guide/guide.component';
 import { InitialComponent } from './components/initial/initial.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
 import { EditAppComponent } from './components/editapp/editapp.component';
@@ -17,6 +16,9 @@ import { ListFieldsComponent } from './components/list-fields/list-fields.compon
 import { NewProjectComponent } from './components/new-project/new-project.component';
 import { EditFieldComponent } from './components/edit-field/edit-field.component';
 import { BuilderCommandComponent } from './components/builder-command/builder-command.component';
+import { ListWeakEntitiesComponent } from './components/list-weak-entities/list-weak-entities.component';
+import { AddWeakEntityComponent } from './components/add-weak-entity/add-weak-entity.component';
+import { ListWeakEntityFieldsComponent } from './components/list-weak-entity-fields/list-weak-entity-fields.component';
 
 
 
@@ -68,7 +70,22 @@ const routes: Routes = [
       {
         path: 'entities/:id/fields',
         component: ListFieldsComponent,
-        title:'Fields'
+        title:'Entity Fields'
+      },
+      {
+        path: 'entities/:id/weak-entities',
+        component: ListWeakEntitiesComponent,
+        title:'Weak Entities'
+      },
+      {
+        path: 'entities/:id/weak-entities/add',
+        component: AddWeakEntityComponent,
+        title:'Add Weak Entities'
+      },
+      {
+        path: 'entities/:entityid/weak-entities/:weakEntitiesId/fields',
+        component: ListWeakEntityFieldsComponent,
+        title:'Fields Weak Entities'
       },
       {
         path: 'entities/:entityid/fields/:fieldid',

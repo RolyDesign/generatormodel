@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { IEntity, IFields, appModel } from './model-interfaces';
+import { IEntity, IFields, IWeakEntity, appModel } from './model-interfaces';
 import { Observable, of, switchMap } from 'rxjs';
 
 import { Router } from '@angular/router';
@@ -39,6 +39,7 @@ export class EntityService {
       ...dataForm,
       Id: this.setEntityId(currentdata.Entities),
       AppId: currentdata.Id,
+      WeakEntities: [],
       Fields: [
         {
           Id: 1,
@@ -59,6 +60,8 @@ export class EntityService {
       ...dataForm,
       Id: entityId,
       AppId: currentdata.Id,
+      WeakEntities: currentdata.Entities.find((e) => e.Id === entityId)
+      ?.WeakEntities as IWeakEntity[],
       Fields: currentdata.Entities.find((e) => e.Id === entityId)
         ?.Fields as IFields[],
     };

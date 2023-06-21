@@ -1,7 +1,6 @@
 import {DataTypes, ElementType, Elements, TypeFile, ValidatorsEnum} from "../shared/meta-data"
 
 export interface appModel {
-
   Id:number
   Name: string
   Entities: IEntity[]
@@ -13,6 +12,27 @@ export interface IEntity {
   Name: string;
   PluralName: string;
   Fields:IFields[];
+  WeakEntities: IWeakEntity[]
+}
+
+export interface IWeakEntity{
+  Id:number;
+  EntityId:number;
+  Name: string;
+  PluralName: string;
+  WeakEntityFields:IWeakEntityFields[];
+}
+
+export interface IWeakEntityFields {
+  Id:number
+  WeakEntityId:number;
+  Name: string;
+  DisplayName: string;
+  Type: DataTypes;
+  DisplayType?: IDisplayType;
+  Validators?: ValidatorsEnum[];
+  ValueValidators?: Array<any>;
+  AvilitarValidators?: boolean
 }
 
 export interface IFields {

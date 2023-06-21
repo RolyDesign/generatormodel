@@ -31,6 +31,9 @@
                   Fields Quantity
                 </th>
                 <th>
+                  Weak Entities Quantity
+                </th>
+                <th>
 
                 </th>
               </tr>
@@ -46,16 +49,18 @@
                 <td>
                   {{entity.Fields.length}}
                 </td>
+                <td>
+                  {{entity.WeakEntities.length}}
+                </td>
                 <td class="text-end">
                   <span role="button" class="text-info  me-4" [routerLink]="['/entities', entity.Id, 'edit']">Edit</span>
                   <span data-bs-toggle="modal" data-bs-target="#confirmModalEntity"  (click)="onActions('delete',entity.Id, entity.Name)" role="button" class="text-info  me-4">Delete</span>
                   <!-- <span role="button" class=" text-info  me-4" [routerLink]="['/entities', entity.Id, 'fields', 'add']">Add Field </span> -->
                   <span role="button" class=" text-info  me-4" [routerLink]="['/entities', entity.Id, 'fields']">Fields</span>
-
+                  <span role="button" class=" text-info  me-4" [routerLink]="['/entities', entity.Id, 'weak-entities']">Weak Entities</span>
                   <span data-bs-toggle="modal" data-bs-target="#confirmModalEntity"  (click)="onActions('export',entity.Id, entity.Name)" role="button" class=" text-info ">Export</span>
                 </td>
               </tr>
-
             </tbody>
           </table>
          </div>

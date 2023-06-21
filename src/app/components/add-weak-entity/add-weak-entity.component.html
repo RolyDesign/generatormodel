@@ -1,0 +1,63 @@
+<div style="background-color:#0000157b;" class="modal fade d-block show" tabindex="-1"
+  aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div style="height: 100vh ;" class=" d-flex justify-content-center align-items-center  ">
+    <form [formGroup]="weakentity" (ngSubmit)="createEntity()" class=" mt-3 w-25">
+      <div class="card shadow">
+        <div class="card-header">
+          <div class=" d-flex justify-content-between align-items-center p-2">
+            <span class="fs-4">Create Weak Entity</span>
+            <button type="button" routerLink="/app/detail" class="btn-close" aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="card-body ">
+          <div class="p-2">
+            <!-- Entity name -->
+            <div>
+              <label for="Name" class=" form-label">Entity Name:</label>
+              <div>
+                <input [title]="helpMessage.entityname" id="Name" formControlName="Name"
+                  class="form-control form-control-sm " type="text" placeholder="App Name" autocomplete="off"
+                  [ngClass]="{'is-invalid': (fm['Name'].touched || fm['Name'].dirty) && !fm['Name'].valid}">
+                <div class="spacer"
+                  [ngClass]="{'d-none': (fm['Name'].touched || fm['Name'].dirty) && !fm['Name'].valid }">
+                </div>
+                <span class="invalid-feedback">
+                  <em class="d-block" *ngIf="fm['Name']?.hasError('required')">
+                    {{validationForms.required}}
+                  </em>
+                </span>
+              </div>
+            </div>
+            <!-- Entity Plural name -->
+            <div>
+              <label for="PluralName" class=" form-label">Entity Plural Name</label>
+              <div>
+                <input id="PluralName" formControlName="PluralName" class="form-control form-control-sm " type="text"
+                  [title]="helpMessage.entityPluralName" placeholder="Entity Plural Name"
+                  [ngClass]="{'is-invalid': (fm['PluralName'].touched || fm['PluralName'].dirty) && !fm['PluralName'].valid}">
+                <div class="spacer"
+                  [ngClass]="{'d-none': (fm['PluralName'].touched || fm['PluralName'].dirty) && !fm['PluralName'].valid }">
+                </div>
+                <span class="invalid-feedback">
+                  <em class="d-block" *ngIf="fm['PluralName']?.hasError('required')">
+                    {{validationForms.required}}
+                  </em>
+                </span>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="card-footer ">
+          <div class="d-flex justify-content-between p-2 py-3">
+            <button class="btn btn-secondary btn-sm " style="width:45%;" routerLink="/app/detail"
+              type="button">Cancel</button>
+            <button class="btn btn-primary btn-sm " style="width:45%;" type="submit"
+              [disabled]="!weakentity.valid">Create</button>
+          </div>
+        </div>
+
+      </div>
+    </form></div>
+</div>

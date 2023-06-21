@@ -1,0 +1,87 @@
+<ng-container *ngIf="weakEntities | async as weakEntities ">
+  <div class="container">
+    <div>
+      <div class="mt-4 ">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-start align-items-center mb-2">
+            <h4 [ngClass]="{'text-white': (mode$ | async) == modes.dark}" class="position-relative ">{{entityName}} /
+              Weak Entities
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"
+                style="font-size: 0.6rem;">
+                {{weakEntities.length}}
+              </span>
+            </h4>
+            <a class="text-decoration-none fw-bolder ms-3 text-info" style="font-size: 0.9rem;"
+              [routerLink]="['/entities',entityId,'weak-entities','add']">
+              New Weak Entity
+            </a>
+
+          </div>
+          <div>
+            <button [routerLink]="'/app/detail'" class="btn btn-primary btn-sm">To Back</button>
+          </div>
+        </div>
+        <ng-container *ngIf="weakEntities.length > 0 ; else addEntity">
+          <div class="scroll-table shadow">
+            <table [ngClass]="{'table-dark': (mode$ | async) == modes.dark}" class="table   table-striped  ">
+              <thead class="bg-dark text-light" style="position: sticky; top: -0.01rem;">
+                <tr>
+                  <th>
+                    Entity Name
+                  </th>
+                  <th>
+                    Entity Plural Name
+                  </th>
+                  <th>
+                    Fields Quantity
+                  </th>
+                  <th>
+
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr *ngFor="let weakEntity of weakEntities">
+                  <td>
+                    {{weakEntity.Name}}
+                  </td>
+                  <td>
+                    {{weakEntity.PluralName}}
+                  </td>
+                  <td>
+                    {{weakEntity.WeakEntityFields.length}}
+                  </td>
+
+                  <td class="text-end">
+                    <span role="button" class="text-info  me-4"
+                      [routerLink]="['/entities', weakEntity.Id, 'edit']">Edit</span>
+                    <span data-bs-toggle="modal" data-bs-target="#confirmModalEntity"
+                      (click)="onActions('delete',weakEntity.Id, weakEntity.Name)" role="button"
+                      class="text-info  me-4">Delete</span>
+                    <span role="button" class=" text-info  me-4"
+                      [routerLink]="['/entities',entityId ,'weak-entities', weakEntity.Id, 'fields']">Fields</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #addEntity>
+  <div class="container">
+    <div class="alert alert-primary text-center" role="alert">
+      Comience creando la primera entidad.
+      <a class="text-decoration-none fw-bolder ms-3 text-info" style="font-size: 0.9rem;"
+        [routerLink]="['/entities',entityId,'weak-entities','add']">
+        New Weak Entity
+      </a>
+    </div>
+  </div>
+</ng-template>
+<div class="divider"></div>
+
+<confirm (action)="actions()" [id]="'confirmModalEntity'" [confirmMessage]="confirmMessage" modalTitle="Alert!!!">
+</confirm>

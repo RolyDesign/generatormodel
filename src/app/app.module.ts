@@ -58,6 +58,11 @@ import { ListFieldsComponent } from './components/list-fields/list-fields.compon
 import { EditAppComponent } from './components/editapp/editapp.component';
 import { EditFieldComponent } from './components/edit-field/edit-field.component';
 import { BuilderCommandComponent } from './components/builder-command/builder-command.component';
+import { ListWeakEntitiesComponent } from './components/list-weak-entities/list-weak-entities.component';
+import { AddWeakEntityComponent } from './components/add-weak-entity/add-weak-entity.component';
+import { ListWeakEntityFieldsComponent } from './components/list-weak-entity-fields/list-weak-entity-fields.component';
+import { EditWeakEntityComponent } from './components/edit-weak-entity/edit-weak-entity.component';
+
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -84,6 +89,11 @@ const APP_CONTAINERS = [
     ListFieldsComponent,
     EditFieldComponent,
     BuilderCommandComponent,
+    ListWeakEntitiesComponent,
+    AddWeakEntityComponent,
+    ListWeakEntityFieldsComponent,
+    EditWeakEntityComponent,
+
   ],
   imports: [
     ConfirmComponent,
